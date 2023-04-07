@@ -1,6 +1,4 @@
 import 'package:akademi_etkinlik/config/config.dart';
-import 'package:akademi_etkinlik/pages/create/announcement.dart';
-import 'package:akademi_etkinlik/pages/create/event.dart';
 import 'package:akademi_etkinlik/pages/settings.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';

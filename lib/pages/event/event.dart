@@ -9,6 +9,7 @@ import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:akademi_etkinlik/widgets/countdown.dart';
 import 'package:akademi_etkinlik/widgets/expandable_text.dart';
+import 'package:akademi_etkinlik/widgets/link_button.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
@@ -79,11 +80,7 @@ class EventPage extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          PlainTextButton(
-                            icon: Icons.tiktok,
-                            text: "TikTok",
-                            backgroundColor: ColorPalette.secondaryItem,
-                          ),
+                          const LinkButton(url: "tiktok.com"),
                           const SizedBox(height: 16),
                           const ExpandableText(
                             text:
