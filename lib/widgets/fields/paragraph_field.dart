@@ -38,7 +38,7 @@ class ParagraphField extends StatelessWidget {
           height: 92,
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
             border: Border.all(
               color: color ?? ColorPalette.primaryItem,
               width: 1.6,
@@ -52,7 +52,7 @@ class ParagraphField extends StatelessWidget {
             expands: true,
             maxLines: null,
             initialValue: initialValue,
-            style: GoogleFonts.ubuntu(
+            style: GoogleFonts.montserrat(
               textStyle: TextStyle(
                 color: textColor ?? ColorPalette.primaryText,
                 fontSize: 16,
@@ -61,7 +61,7 @@ class ParagraphField extends StatelessWidget {
             ),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: GoogleFonts.ubuntu(
+              hintStyle: GoogleFonts.montserrat(
                 textStyle: TextStyle(
                   color: hintColor ?? ColorPalette.secondaryText,
                   fontSize: 16,

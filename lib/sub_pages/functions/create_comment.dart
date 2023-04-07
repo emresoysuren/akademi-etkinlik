@@ -1,7 +1,7 @@
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
-import 'package:akademi_etkinlik/widgets/paragraph_field.dart';
+import 'package:akademi_etkinlik/widgets/fields/paragraph_field.dart';
 import 'package:flutter/material.dart';
 
 class CreateComment extends StatefulWidget {

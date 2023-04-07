@@ -14,10 +14,11 @@ class AuthPage extends StatelessWidget {
         child: PrimaryButton(
           label: "Giriş Yap",
           onPressed: () => Navigator.push(
-              context,
-              NonAnimatedPageRoute(
-                builder: (context) => const LoginPage(),
-              )),
+            context,
+            NonAnimatedPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+          ),
         ),
       ),
     );
