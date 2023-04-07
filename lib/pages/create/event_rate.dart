@@ -11,6 +11,7 @@ class CreateEventRatePage extends StatelessWidget {
       appBar: Bar(
         title: "Etkinlik",
         subTitle: "Değerlendirme Formu Oluştur",
+        popButton: true,
       ),
       body: Center(),
     );

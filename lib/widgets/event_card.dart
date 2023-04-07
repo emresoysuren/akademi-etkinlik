@@ -129,7 +129,7 @@ class EventCard extends StatelessWidget {
                             ],
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ],

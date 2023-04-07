@@ -10,7 +10,8 @@ class CreateEventJoinPage extends StatelessWidget {
     return const Base(
       appBar: Bar(
         title: "Etkinlik",
-        subTitle: "Katılma Formu Oluştur",
+        subTitle: "Katılım Formu Oluştur",
+        popButton: true,
       ),
       body: Center(),
     );
