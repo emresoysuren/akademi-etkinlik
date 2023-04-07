@@ -9,7 +9,7 @@ extension LinkType on String {
     if (toLowerCase().contains("facebook.com")) {
       return LinkTypes.facebook;
     }
-    return LinkTypes.facebook;
+    return LinkTypes.other;
   }
 }
 

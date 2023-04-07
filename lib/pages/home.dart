@@ -1,6 +1,6 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/announcement/announcements.dart';
-import 'package:akademi_etkinlik/services/data_service.dart';
+import 'package:akademi_etkinlik/repository/events_repo.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/main_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
@@ -10,15 +10,16 @@ import 'package:akademi_etkinlik/widgets/event_card.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   int currentIndex = 1;
 
   @override
@@ -62,28 +63,25 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: FutureBuilder(
-            future: DataService.getEvents(),
-            builder: (context, snapshot) {
-              return DisableScrollBehavior(
-                child: ListView.separated(
-                    padding: const EdgeInsets.all(0),
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 24),
-                    itemCount: snapshot.data?.length ?? 0,
-                    itemBuilder: (context, i) {
-                      return Column(
-                        children: [
-                          EventCard(
-                            event: snapshot.data![i],
-                            show: currentIndex == i,
-                            onPressed: () => setState(() => currentIndex = i),
-                          ),
-                        ],
-                      );
-                    }),
+        child: DisableScrollBehavior(
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 24),
+            itemCount: ref.watch(events).events.length,
+            itemBuilder: (context, i) {
+              return Column(
+                children: [
+                  EventCard(
+                    event: ref.watch(events).events[i],
+                    show: currentIndex == i,
+                    onPressed: () => setState(
+                      () => currentIndex = i,
+                    ),
+                  ),
+                ],
               );
-            }),
+            },
+          ),
+        ),
       ),
     );
   }

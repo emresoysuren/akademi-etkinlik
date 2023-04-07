@@ -1,13 +1,16 @@
 import 'package:akademi_etkinlik/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
-    const MaterialApp(
-      home: SplashPage(),
+    const ProviderScope(
+      child: MaterialApp(
+        home: SplashPage(),
+      ),
     ),
   );
 }

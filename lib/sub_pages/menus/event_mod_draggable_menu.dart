@@ -1,19 +1,25 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/create/event.dart';
+import 'package:akademi_etkinlik/pages/home.dart';
 import 'package:akademi_etkinlik/pages/settings.dart';
+import 'package:akademi_etkinlik/repository/events_repo.dart';
+import 'package:akademi_etkinlik/services/data_service.dart';
+import 'package:akademi_etkinlik/sub_pages/cards/dialog.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
+import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventModDraggableMenu extends StatelessWidget {
+class EventModDraggableMenu extends ConsumerWidget {
   final Event event;
 
   const EventModDraggableMenu({super.key, required this.event});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return DraggableMenu(
       minHeight: 0,
       color: ColorPalette.secondaryBackground,
@@ -35,7 +41,31 @@ class EventModDraggableMenu extends StatelessWidget {
               ),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () => Navigator.push(
+                context,
+                DialogRoute(
+                  context: context,
+                  builder: (context) => DialogCard(
+                    title: "Etkinliği Sil",
+                    text:
+                        "Bu etkinliği silmek istediğinize emin misiniz? Silme işlemi geri alınamaz.",
+                    buttonText: "Etkinliği Sil",
+                    buttonPress: () async {
+                      await DataService.deleteEvent(event);
+                      await ref.read(events).getEvents();
+                      if (context.mounted) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          NonAnimatedPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                          (route) => false,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
               leading: const Icon(
                 Icons.delete,
                 color: ColorPalette.primaryItem,

@@ -66,7 +66,9 @@ class EventPage extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 16),
+                        horizontal: 24,
+                        vertical: 16,
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -86,7 +88,7 @@ class EventPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 16),
                           LinkButton(url: event.link ?? ""),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 28),
                           ExpandableText(text: event.content),
                           const SizedBox(height: 16),
                           Row(

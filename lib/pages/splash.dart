@@ -2,21 +2,23 @@ import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/firebase_options.dart';
 import 'package:akademi_etkinlik/pages/auth/auth.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
+import 'package:akademi_etkinlik/repository/events_repo.dart';
 import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  ConsumerState<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends ConsumerState<SplashPage> {
   @override
   void initState() {
     super.initState();
@@ -57,6 +59,7 @@ class _SplashPageState extends State<SplashPage> {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    await ref.read(events).getEvents();
     await minDuration;
     if (mounted) {
       Navigator.pushReplacement(

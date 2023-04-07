@@ -1,5 +1,7 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
+import 'package:akademi_etkinlik/pages/home.dart';
+import 'package:akademi_etkinlik/repository/events_repo.dart';
 import 'package:akademi_etkinlik/services/data_service.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
@@ -7,20 +9,22 @@ import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart'
 import 'package:akademi_etkinlik/widgets/buttons/configured/secondary_button.dart';
 import 'package:akademi_etkinlik/widgets/fields/info_field.dart';
 import 'package:akademi_etkinlik/widgets/fields/paragraph_field.dart';
+import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
-class CreateEventPage extends StatefulWidget {
+class CreateEventPage extends ConsumerStatefulWidget {
   final Event? event;
 
   const CreateEventPage({super.key, this.event});
 
   @override
-  State<CreateEventPage> createState() => _CreateEventPageState();
+  ConsumerState<CreateEventPage> createState() => _CreateEventPageState();
 }
 
-class _CreateEventPageState extends State<CreateEventPage> {
+class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   String? _link;
   String? _title;
   String? _content;
@@ -129,7 +133,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: PrimaryButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_content != null ||
                     _title != null ||
                     _link != null ||
@@ -138,7 +142,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     if (_content != null &&
                         _title != null &&
                         _dateTime != null) {
-                      DataService.createEvent(
+                      await DataService.createEvent(
                         Event(
                           content: _content!,
                           title: _title!,
@@ -146,12 +150,21 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           link: _link,
                         ),
                       );
-                      Navigator.pop(context);
+                      await ref.read(events).getEvents();
+                      if (mounted) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          NonAnimatedPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                          (route) => false,
+                        );
+                      }
                     } else {
                       // TODO: Throw an error. Because some fields are empty
                     }
                   } else {
-                    DataService.editEvent(
+                    await DataService.editEvent(
                       Event(
                         content: _content ?? widget.event!.content,
                         title: _title ?? widget.event!.title,
@@ -162,7 +175,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         id: widget.event?.id,
                       ),
                     );
-                    Navigator.pop(context);
+                    await ref.read(events).getEvents();
+                    if (mounted) {
+                      Navigator.pop(context);
+                    }
                   }
                 } else {
                   // TODO: Show an error because the user haven't changed anything yet

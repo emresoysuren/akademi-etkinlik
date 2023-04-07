@@ -40,17 +40,20 @@ class MainDraggableMenu extends StatelessWidget {
             ),
             ListTile(
               onTap: () => Navigator.push(
-                  context,
-                  DialogRoute(
-                    context: context,
-                    builder: (context) => DialogCard(
-                      title: "Çıkış Yap",
-                      text:
-                          "Proident et ullamco minim eiusmod cupidatat ea consectetur in mollit ut excepteur duis ad velit.",
-                      buttonText: "Çıkış Yap",
-                      buttonPress: () => signOut(context),
-                    ),
-                  )),
+                context,
+                DialogRoute(
+                  context: context,
+                  builder: (context) => DialogCard(
+                    title: "Çıkış Yap",
+                    text:
+                        "Proident et ullamco minim eiusmod cupidatat ea consectetur in mollit ut excepteur duis ad velit.",
+                    buttonText: "Çıkış Yap",
+                    buttonColor: Colors.red,
+                    buttonTextColor: Colors.red,
+                    buttonPress: () => signOut(context),
+                  ),
+                ),
+              ),
               leading: const Icon(
                 Icons.logout_rounded,
                 color: Colors.red,

@@ -8,6 +8,8 @@ class DialogCard extends StatelessWidget {
   final String text;
   final String buttonText;
   final Function()? buttonPress;
+  final Color? buttonColor;
+  final Color? buttonTextColor;
 
   const DialogCard({
     super.key,
@@ -15,6 +17,8 @@ class DialogCard extends StatelessWidget {
     required this.text,
     required this.buttonText,
     this.buttonPress,
+    this.buttonColor,
+    this.buttonTextColor,
   });
 
   @override
@@ -55,8 +59,8 @@ class DialogCard extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: SecondaryButton(
-                        color: Colors.red,
-                        textColor: Colors.red,
+                        color: buttonColor,
+                        textColor: buttonTextColor,
                         label: buttonText,
                         onPressed: buttonPress,
                       ),
