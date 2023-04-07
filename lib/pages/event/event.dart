@@ -2,6 +2,7 @@ import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/event/event_join.dart';
 import 'package:akademi_etkinlik/pages/event/event_rate.dart';
+import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/event_mod_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/add_comment.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
@@ -76,7 +77,7 @@ class EventPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "${event.date.toDate().day}/${event.date.toDate().month}/${event.date.toDate().year} ${event.date.toDate().hour}:${event.date.toDate().minute.toString().padLeft(2, "0")}",
+                                event.date.toDateString(),
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,

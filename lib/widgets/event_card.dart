@@ -1,6 +1,7 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/event/event.dart';
+import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/countdown.dart';
@@ -22,7 +23,7 @@ class EventCard extends StatelessWidget {
       child: PhysicalModel(
         color: Colors.transparent,
         borderRadius: const BorderRadius.all(Radius.circular(16)),
-        elevation: 4,
+        elevation: 2,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 320),
           curve: Curves.ease,
@@ -61,7 +62,7 @@ class EventCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "${event.date.toDate().day}/${event.date.toDate().month}/${event.date.toDate().year} ${event.date.toDate().hour}:${event.date.toDate().minute.toString().padLeft(2, "0")}",
+                            event.date.toDateString(),
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,

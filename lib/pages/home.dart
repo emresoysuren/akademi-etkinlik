@@ -61,26 +61,20 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: DisableScrollBehavior(
-          child: ListView.separated(
-            separatorBuilder: (context, index) => const SizedBox(height: 24),
-            itemCount: ref.watch(events).events.length,
-            itemBuilder: (context, i) {
-              return Column(
-                children: [
-                  EventCard(
-                    event: ref.watch(events).events[i],
-                    show: currentIndex == i,
-                    onPressed: () => setState(
-                      () => currentIndex = i,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+      body: DisableScrollBehavior(
+        child: ListView.separated(
+          padding: const EdgeInsets.all(16),
+          separatorBuilder: (context, index) => const SizedBox(height: 24),
+          itemCount: ref.watch(events).events.length,
+          itemBuilder: (context, i) {
+            return EventCard(
+              event: ref.watch(events).events[i],
+              show: currentIndex == i,
+              onPressed: () => setState(
+                () => currentIndex = i,
+              ),
+            );
+          },
         ),
       ),
     );

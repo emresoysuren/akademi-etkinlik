@@ -1,4 +1,6 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/models/announcement.dart';
+import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/anc_mod_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
@@ -9,25 +11,26 @@ import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
 
 class AnnouncementPage extends StatelessWidget {
-  final String text;
-  final String title;
+  final Announcement announcement;
 
-  const AnnouncementPage({super.key, required this.text, required this.title});
+  const AnnouncementPage({super.key, required this.announcement});
 
   @override
   Widget build(BuildContext context) {
     return Base(
       appBar: Bar(
-        title: title,
-        subTitle: "GG/AA/YY",
+        title: announcement.title,
+        subTitle: announcement.date.toDateString(),
         popButton: true,
         children: [
           SingleButton(
             padding: const EdgeInsets.all(9),
             onPressed: () => DraggableMenu.open(
               context,
+              AncModDraggableMenu(
+                announcement: announcement,
+              ),
               barrier: true,
-              const AncModDraggableMenu(),
             ),
             child: const Icon(
               Icons.more_horiz,
@@ -39,12 +42,18 @@ class AnnouncementPage extends StatelessWidget {
       body: DisableScrollBehavior(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: ColorPalette.primaryText,
-                fontSize: 16,
+            padding: const EdgeInsets.symmetric(
+              vertical: 16,
+              horizontal: 24,
+            ),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                announcement.content,
+                style: const TextStyle(
+                  color: ColorPalette.primaryText,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),

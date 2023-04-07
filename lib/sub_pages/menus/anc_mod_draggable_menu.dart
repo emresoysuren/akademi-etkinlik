@@ -1,12 +1,20 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/models/announcement.dart';
+import 'package:akademi_etkinlik/pages/create/announcement.dart';
+import 'package:akademi_etkinlik/pages/home.dart';
 import 'package:akademi_etkinlik/pages/settings.dart';
+import 'package:akademi_etkinlik/services/data_service.dart';
+import 'package:akademi_etkinlik/sub_pages/cards/dialog.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
+import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
 
 class AncModDraggableMenu extends StatelessWidget {
-  const AncModDraggableMenu({super.key});
+  final Announcement announcement;
+
+  const AncModDraggableMenu({super.key, required this.announcement});
 
   @override
   Widget build(BuildContext context) {
@@ -22,31 +30,46 @@ class AncModDraggableMenu extends StatelessWidget {
               title: "Ayarlar",
               page: const SettingsPage(),
             ),
-            ListTile(
-              onTap: () {},
-              leading: const Icon(
-                Icons.edit,
-                color: ColorPalette.primaryItem,
-              ),
-              horizontalTitleGap: 0,
-              title: const Text(
-                "Duyuruyu Düzenle",
-                style: TextStyle(
-                  color: ColorPalette.primaryItem,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+            _tile(
+              context,
+              title: "Etkinliği Düzenle",
+              icon: Icons.edit,
+              page: CreateAnnouncementPage(
+                announcement: announcement,
               ),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () => Navigator.push(
+                context,
+                DialogRoute(
+                  context: context,
+                  builder: (context) => DialogCard(
+                    title: "Duyuruyu Sil",
+                    text:
+                        "Bu duyuruyu silmek istediğinize emin misiniz? Silme işlemi geri alınamaz.",
+                    buttonText: "Duyuruyu Sil",
+                    buttonPress: () async {
+                      await DataService.deleteAnnouncement(announcement);
+                      if (context.mounted) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          NonAnimatedPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                          (route) => false,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
               leading: const Icon(
                 Icons.delete,
                 color: ColorPalette.primaryItem,
               ),
               horizontalTitleGap: 0,
               title: const Text(
-                "Duyuruyu  Sil",
+                "Etkinliği Sil",
                 style: TextStyle(
                   color: ColorPalette.primaryItem,
                   fontWeight: FontWeight.bold,

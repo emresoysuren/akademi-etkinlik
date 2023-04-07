@@ -13,6 +13,7 @@ dependencies:
   firebase_core: ^2.9.0
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.0
   flutter_riverpod: ^2.3.3
   google_fonts: ^4.0.3
   loading_animation_widget: ^1.2.0+4
@@ -26,3 +27,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+  remove_alpha_ios: true

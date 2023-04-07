@@ -1,6 +1,7 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
+import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
 import 'package:akademi_etkinlik/repository/events_repo.dart';
 import 'package:akademi_etkinlik/services/data_service.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/add_event_form_draggable_menu.dart';
@@ -115,9 +116,9 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                         : null
                     : ColorPalette.primaryText,
                 label: _dateTime != null
-                    ? "${_dateTime!.day}/${_dateTime!.month}/${_dateTime!.year} ${_dateTime!.hour}:${_dateTime!.minute.toString().padLeft(2, "0")}"
+                    ? widget.event!.date.toDateString()
                     : widget.event != null
-                        ? "${widget.event!.date.toDate().day}/${widget.event!.date.toDate().month}/${widget.event!.date.toDate().year} ${widget.event!.date.toDate().hour}:${widget.event!.date.toDate().minute.toString().padLeft(2, "0")}"
+                        ? widget.event!.date.toDateString()
                         : "Etkinlik Zamanını Belirle",
                 radius: 16,
                 borderWidth: 1.6,
@@ -190,7 +191,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                                     ? Timestamp.fromDate(_dateTime!)
                                     : widget.event!.date,
                                 link: _link ?? widget.event?.link,
-                                id: widget.event?.id,
+                                id: widget.event!.id,
                               ),
                             );
                             await ref.read(events).getEvents();

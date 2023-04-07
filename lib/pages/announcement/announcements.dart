@@ -1,3 +1,4 @@
+import 'package:akademi_etkinlik/services/data_service.dart';
 import 'package:akademi_etkinlik/widgets/announcement_card.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
@@ -9,31 +10,34 @@ class AnnouncementsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Base(
-      appBar: const Bar(
-        title: "Duyurular",
-        subTitle: "24 Adet Duyuru Var",
-        popButton: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: DisableScrollBehavior(
-          child: ListView.builder(
-            itemCount: 24,
-            padding: const EdgeInsets.all(0),
-            itemBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: AnnouncementCard(
-                  title: "Duyuru",
-                  text:
-                      "Voluptate eu laborum fugiat aliqua exercitation culpa quis nostrud et ex quis enim ullamco. Commodo cupidatat id deserunt sunt pariatur duis cillum sint proident laboris. Nulla nisi culpa cillum eu occaecat mollit.",
-                ),
-              );
-            },
+    return FutureBuilder(
+      future: DataService.getAnnouncements(),
+      builder: (context, snapshot) {
+        return Base(
+          appBar: Bar(
+            title: "Duyurular",
+            subTitle: snapshot.data != null
+                ? "${snapshot.data?.length} Adet Duyuru Var"
+                : "",
+            popButton: true,
           ),
-        ),
-      ),
+          body: DisableScrollBehavior(
+            child: snapshot.data != null
+                ? ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 24),
+                    padding: const EdgeInsets.all(16),
+                    itemCount: snapshot.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return AnnouncementCard(
+                        announcement: snapshot.data![index],
+                      );
+                    },
+                  )
+                : const Center(),
+          ),
+        );
+      },
     );
   }
 }
