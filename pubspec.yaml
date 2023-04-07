@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   draggable_menu: ^0.1.1
+  firebase_core: ^2.9.0
   flutter:
     sdk: flutter
   google_fonts: ^4.0.3

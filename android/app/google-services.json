@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "241856329181",
+    "project_id": "akademi-etkinlik",
+    "storage_bucket": "akademi-etkinlik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241856329181:android:02b48e0fc27c062bbbb234",
+        "android_client_info": {
+          "package_name": "com.example.akademi_etkinlik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241856329181-9blt66jb7ih52b65esdh93g5n287lun1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlj5xaVfgscRZUjStZPVA3zK1oj1juDm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241856329181-9blt66jb7ih52b65esdh93g5n287lun1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
