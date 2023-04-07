@@ -11,5 +11,5 @@ class ColorPalette {
   static const Color primaryItem = Colors.black;
   static Color secondaryItem = Colors.grey.shade300;
   static const Color primaryText = Colors.black;
-  static Color secondaryText = Colors.grey.shade300;
+  static Color secondaryText = Colors.grey.shade600;
 }

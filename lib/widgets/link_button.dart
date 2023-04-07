@@ -16,6 +16,14 @@ class LinkButton extends StatelessWidget {
       text = "TikTok";
       icon = Icons.tiktok;
     }
+    if (url.toLowerCase().contains("discord.com")) {
+      text = "Discord";
+      icon = Icons.discord;
+    }
+    if (url.toLowerCase().contains("facebook.com")) {
+      text = "Facebook";
+      icon = Icons.facebook;
+    }
     return PlainTextButton(
       icon: icon,
       text: text,

@@ -26,7 +26,7 @@ class MainDraggableMenu extends StatelessWidget {
             ),
             _tile(
               context,
-              icon: Icons.announcement_outlined,
+              icon: Icons.campaign_outlined,
               title: "Duyuru Oluştur",
               page: const CreateAnnouncementPage(),
             ),

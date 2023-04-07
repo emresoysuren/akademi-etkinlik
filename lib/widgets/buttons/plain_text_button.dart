@@ -12,6 +12,7 @@ class PlainTextButton extends StatelessWidget {
   final Color? backgroundColor;
   final double? fontSize;
   final Color? iconColor;
+  final double? iconSize;
 
   const PlainTextButton({
     super.key,
@@ -24,6 +25,7 @@ class PlainTextButton extends StatelessWidget {
     this.backgroundColor,
     this.fontSize,
     this.iconColor,
+    this.iconSize,
   });
 
   @override
@@ -32,7 +34,7 @@ class PlainTextButton extends StatelessWidget {
       if (icon != null)
         Icon(
           icon,
-          size: 20,
+          size: iconSize ?? 20,
           color: iconColor ?? color ?? ColorPalette.primaryItem,
         ),
       if (icon != null) const SizedBox(width: 4),

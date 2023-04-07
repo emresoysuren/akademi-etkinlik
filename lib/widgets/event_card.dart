@@ -82,6 +82,7 @@ class EventCard extends StatelessWidget {
                             Icon(
                               Icons.star_rate_rounded,
                               color: Colors.amber,
+                              size: 20,
                             ),
                             SizedBox(width: 4),
                             Text(
@@ -100,6 +101,7 @@ class EventCard extends StatelessWidget {
                             Icon(
                               Icons.people_alt_rounded,
                               color: ColorPalette.primaryItem,
+                              size: 20,
                             ),
                             SizedBox(width: 4),
                             Text(

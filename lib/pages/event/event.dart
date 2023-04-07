@@ -2,15 +2,18 @@ import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/event/event_join.dart';
 import 'package:akademi_etkinlik/pages/event/event_rate.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/event_mod_draggable_menu.dart';
+import 'package:akademi_etkinlik/widgets/add_comment.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:akademi_etkinlik/widgets/countdown.dart';
+import 'package:akademi_etkinlik/widgets/disable_scroll_behavior.dart';
 import 'package:akademi_etkinlik/widgets/expandable_text.dart';
 import 'package:akademi_etkinlik/widgets/link_button.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
+import 'package:akademi_etkinlik/widgets/user_comment.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -41,24 +44,22 @@ class EventPage extends StatelessWidget {
         ],
       ),
       body: Stack(
+        alignment: Alignment.topCenter,
         children: [
           SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: ColoredBox(color: ColorPalette.secondaryBackground),
           ),
-          Positioned(
-            top: 0,
-            right: 0,
-            left: 0,
+          DisableScrollBehavior(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Material(
                     color: ColorPalette.primaryBackground,
-                    borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(32)),
+                    borderRadius:
+                        const BorderRadius.vertical(bottom: Radius.circular(32)),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 24, vertical: 16),
@@ -113,9 +114,10 @@ class EventPage extends StatelessWidget {
                               onPressed: () => Navigator.push(
                                 context,
                                 SlidePageRoute(
-                                    child: join != false
-                                        ? const EventJoinPage()
-                                        : const EventRatePage()),
+                                  child: join != false
+                                      ? const EventJoinPage()
+                                      : const EventRatePage(),
+                                ),
                               ),
                             ),
                           ),
@@ -124,13 +126,13 @@ class EventPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 16),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          "Yorumlar:",
+                          "29 Yorum:",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -145,9 +147,18 @@ class EventPage extends StatelessWidget {
                                 backgroundColor: ColorPalette.primaryBackground,
                                 radius: 32,
                               ),
+                              SizedBox(width: 24),
+                              Expanded(
+                                child: AddComment(),
+                              ),
                             ],
                           ),
-                        )
+                        ),
+                        for (int x = 0; x < 30; x++)
+                          const UserComment(
+                            text:
+                                "Id nisi laborum enim veniam exercitation et. Incididunt duis qui minim est id fugiat proident do. Lorem est dolore ad cillum officia amet magna. Dolore commodo cupidatat minim non ullamco. Consequat dolor deserunt officia nostrud officia non nisi cillum in ut.",
+                          ),
                       ],
                     ),
                   )
