@@ -1,3 +1,4 @@
+import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Akademi Etkinlik",
+              Config.title,
               style: GoogleFonts.montserrat(
                 textStyle: const TextStyle(
                   fontSize: 32,
