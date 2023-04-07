@@ -11,6 +11,7 @@ class EventJoinPage extends StatelessWidget {
       appBar: Bar(
         title: "Etkinlik",
         subTitle: "Katıl",
+        popButton: true,
       ),
       body: Center(),
     );

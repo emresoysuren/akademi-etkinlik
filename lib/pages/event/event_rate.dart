@@ -11,6 +11,7 @@ class EventRatePage extends StatelessWidget {
       appBar: Bar(
         title: "Etkinlik",
         subTitle: "Değerlendir",
+        popButton: true,
       ),
       body: Center(),
     );

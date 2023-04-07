@@ -5,7 +5,7 @@ class Config {
 }
 
 class ColorPalette {
-  static const Color primaryButton = Colors.blue;
+  static const Color primaryButton = Color(0xFF06A5FF);
   static const Color primaryBackground = Colors.white;
   static Color secondaryBackground = Colors.grey.shade300;
   static const Color primaryItem = Colors.black;

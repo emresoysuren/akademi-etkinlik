@@ -2,6 +2,7 @@ import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/event/event.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
+import 'package:akademi_etkinlik/widgets/countdown.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class EventCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           color: ColorPalette.secondaryBackground,
-          borderRadius: const BorderRadius.all(Radius.circular(36)),
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
         ),
         child: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
@@ -30,6 +31,7 @@ class EventCard extends StatelessWidget {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,28 +61,20 @@ class EventCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Spacer(),
-                    const Text(
-                      "19:29:40",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: ColorPalette.primaryText,
-                      ),
-                    ),
+                    const CountDown(),
                   ],
                 ),
                 const SizedBox(height: 36),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     PrimaryButton(
                       label: "Görüntüle",
                       onPressed: () => Navigator.push(
                         context,
-                        SlidePageRoute(child: const EventPage()),
+                        SlidePageRoute(child: const EventPage(join: false,)),
                       ),
                     ),
-                    const Spacer(),
                     Column(
                       children: [
                         Row(
@@ -91,7 +85,7 @@ class EventCard extends StatelessWidget {
                             ),
                             SizedBox(width: 4),
                             Text(
-                              "1.2k",
+                              "3.86",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

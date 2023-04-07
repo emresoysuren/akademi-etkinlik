@@ -1,9 +1,11 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/pages/announcement/announcements.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/main_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:akademi_etkinlik/widgets/event_card.dart';
+import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +25,17 @@ class _HomePageState extends State<HomePage> {
       appBar: Bar(
         title: Config.title,
         children: [
+          SingleButton(
+            onPressed: () => Navigator.push(
+              context,
+              SlidePageRoute(child: const AnnouncementsPage()),
+            ),
+            padding: const EdgeInsets.all(10),
+            child: const Icon(
+              Icons.notifications,
+              size: 28,
+            ),
+          ),
           SingleButton(
             onPressed: () {},
             padding: const EdgeInsets.all(9),

@@ -8,7 +8,10 @@ class AnnouncementsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Base(
-      appBar: Bar(title: "Duyurular"),
+      appBar: Bar(
+        title: "Duyurular",
+        popButton: true,
+      ),
       body: Center(),
     );
   }
