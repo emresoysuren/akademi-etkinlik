@@ -1,6 +1,8 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/pages/event/event.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
+import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {
@@ -71,7 +73,13 @@ class EventCard extends StatelessWidget {
                 const SizedBox(height: 36),
                 Row(
                   children: [
-                    const PrimaryButton(label: "Görüntüle"),
+                    PrimaryButton(
+                      label: "Görüntüle",
+                      onPressed: () => Navigator.push(
+                        context,
+                        SlidePageRoute(child: const EventPage()),
+                      ),
+                    ),
                     const Spacer(),
                     Column(
                       children: [

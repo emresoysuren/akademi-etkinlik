@@ -11,6 +11,7 @@ class CreateEventPage extends StatelessWidget {
       appBar: Bar(
         title: "Etkinlik",
         subTitle: "Oluştur",
+        popButton: true,
       ),
       body: Center(),
     );

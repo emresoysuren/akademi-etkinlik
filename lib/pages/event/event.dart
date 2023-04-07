@@ -8,7 +8,7 @@ class EventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Base(
-      appBar: Bar(title: "Etkinlik"),
+      appBar: Bar(title: "Etkinlik", popButton: true),
       body: Center(),
     );
   }
