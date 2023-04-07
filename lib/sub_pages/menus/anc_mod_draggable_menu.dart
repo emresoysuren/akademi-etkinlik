@@ -62,7 +62,7 @@ class AncModDraggableMenu extends StatelessWidget {
               ),
               horizontalTitleGap: 0,
               title: const Text(
-                "Bu Etkinliği Bildir",
+                "Hata Bildir",
                 style: TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,

@@ -5,6 +5,7 @@ import 'package:akademi_etkinlik/sub_pages/menus/main_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
+import 'package:akademi_etkinlik/widgets/disable_scroll_behavior.dart';
 import 'package:akademi_etkinlik/widgets/event_card.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
@@ -64,22 +65,24 @@ class _HomePageState extends State<HomePage> {
         child: FutureBuilder(
             future: DataService.getEvents(),
             builder: (context, snapshot) {
-              return ListView.separated(
-                  padding: const EdgeInsets.all(0),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 24),
-                  itemCount: snapshot.data?.length ?? 0,
-                  itemBuilder: (context, i) {
-                    return Column(
-                      children: [
-                        EventCard(
-                          event: snapshot.data![i],
-                          show: currentIndex == 0,
-                          onPressed: () => setState(() => currentIndex = 0),
-                        ),
-                      ],
-                    );
-                  });
+              return DisableScrollBehavior(
+                child: ListView.separated(
+                    padding: const EdgeInsets.all(0),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 24),
+                    itemCount: snapshot.data?.length ?? 0,
+                    itemBuilder: (context, i) {
+                      return Column(
+                        children: [
+                          EventCard(
+                            event: snapshot.data![i],
+                            show: currentIndex == i,
+                            onPressed: () => setState(() => currentIndex = i),
+                          ),
+                        ],
+                      );
+                    }),
+              );
             }),
       ),
     );

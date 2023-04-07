@@ -15,9 +15,13 @@ class UserComment extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         children: [
-          const CircleAvatar(
-            backgroundColor: ColorPalette.primaryBackground,
-            radius: 32,
+          const Material(
+            elevation: 2,
+            shape: CircleBorder(),
+            child: CircleAvatar(
+              backgroundColor: ColorPalette.primaryBackground,
+              radius: 32,
+            ),
           ),
           const SizedBox(width: 24),
           Expanded(

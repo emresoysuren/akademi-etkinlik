@@ -1,4 +1,6 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/models/event.dart';
+import 'package:akademi_etkinlik/pages/create/event.dart';
 import 'package:akademi_etkinlik/pages/settings.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
@@ -6,7 +8,9 @@ import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
 
 class EventModDraggableMenu extends StatelessWidget {
-  const EventModDraggableMenu({super.key});
+  final Event event;
+
+  const EventModDraggableMenu({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +26,12 @@ class EventModDraggableMenu extends StatelessWidget {
               title: "Ayarlar",
               page: const SettingsPage(),
             ),
-            ListTile(
-              onTap: () {},
-              leading: const Icon(
-                Icons.edit,
-                color: ColorPalette.primaryItem,
-              ),
-              horizontalTitleGap: 0,
-              title: const Text(
-                "Etkinliği Düzenle",
-                style: TextStyle(
-                  color: ColorPalette.primaryItem,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+            _tile(
+              context,
+              title: "Etkinliği Düzenle",
+              icon: Icons.edit,
+              page: CreateEventPage(
+                event: event,
               ),
             ),
             ListTile(
@@ -62,7 +58,7 @@ class EventModDraggableMenu extends StatelessWidget {
               ),
               horizontalTitleGap: 0,
               title: const Text(
-                "Bu Etkinliği Bildir",
+                "Hata Bildir",
                 style: TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,

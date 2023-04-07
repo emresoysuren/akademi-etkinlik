@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "${Config.title}'a Giriş Yap",
+                    "${Config.title}'e Giriş Yap",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

@@ -5,12 +5,14 @@ class Event {
   final String content;
   final Timestamp date;
   final String? link;
+  final String? id;
 
   Event({
     required this.content,
     this.link,
     required this.title,
     required this.date,
+    this.id,
   });
 
   Event.fromMap(Map m)
@@ -19,6 +21,7 @@ class Event {
           content: m["content"],
           date: m["date"],
           link: m["link"],
+          id: m["id"],
         );
 
   Map<String, Object?> toMap() {

@@ -2,6 +2,8 @@ import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/create/announcement.dart';
 import 'package:akademi_etkinlik/pages/create/event.dart';
 import 'package:akademi_etkinlik/pages/settings.dart';
+import 'package:akademi_etkinlik/pages/utils/sign_out.dart';
+import 'package:akademi_etkinlik/sub_pages/cards/dialog.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
@@ -37,7 +39,18 @@ class MainDraggableMenu extends StatelessWidget {
               page: const SettingsPage(),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () => Navigator.push(
+                  context,
+                  DialogRoute(
+                    context: context,
+                    builder: (context) => DialogCard(
+                      title: "Çıkış Yap",
+                      text:
+                          "Proident et ullamco minim eiusmod cupidatat ea consectetur in mollit ut excepteur duis ad velit.",
+                      buttonText: "Çıkış Yap",
+                      buttonPress: () => signOut(context),
+                    ),
+                  )),
               leading: const Icon(
                 Icons.logout_rounded,
                 color: Colors.red,

@@ -25,6 +25,7 @@ class _AddCommentState extends State<AddComment> {
       },
       child: Material(
         color: ColorPalette.primaryBackground,
+        elevation: 2,
         borderRadius: const BorderRadius.all(
           Radius.circular(16),
         ),

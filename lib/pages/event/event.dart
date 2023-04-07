@@ -36,7 +36,7 @@ class EventPage extends StatelessWidget {
             onPressed: () => DraggableMenu.open(
               context,
               barrier: true,
-              const EventModDraggableMenu(),
+              EventModDraggableMenu(event: event),
             ),
             child: const Icon(
               Icons.more_horiz,
@@ -60,6 +60,7 @@ class EventPage extends StatelessWidget {
                 children: [
                   Material(
                     color: ColorPalette.primaryBackground,
+                    elevation: 4,
                     borderRadius: const BorderRadius.vertical(
                       bottom: Radius.circular(32),
                     ),
@@ -143,9 +144,14 @@ class EventPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           child: Row(
                             children: const [
-                              CircleAvatar(
-                                backgroundColor: ColorPalette.primaryBackground,
-                                radius: 32,
+                              Material(
+                                elevation: 2,
+                                shape: CircleBorder(),
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      ColorPalette.primaryBackground,
+                                  radius: 32,
+                                ),
                               ),
                               SizedBox(width: 24),
                               Expanded(
