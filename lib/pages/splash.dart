@@ -1,5 +1,10 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/firebase_options.dart';
+import 'package:akademi_etkinlik/pages/auth/auth.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
+import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -15,14 +20,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero).then(
-      (value) => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      ),
-    );
+    _firebaseInit();
   }
 
   @override
@@ -52,5 +50,23 @@ class _SplashPageState extends State<SplashPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _firebaseInit() async {
+    Future minDuration = Future.delayed(Duration.zero);
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await minDuration;
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        NonAnimatedPageRoute(
+          builder: (context) => (FirebaseAuth.instance.currentUser != null)
+              ? const HomePage()
+              : const AuthPage(),
+        ),
+      );
+    }
   }
 }
