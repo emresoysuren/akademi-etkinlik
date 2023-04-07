@@ -1,5 +1,6 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/announcement/announcements.dart';
+import 'package:akademi_etkinlik/services/data_service.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/main_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
@@ -60,29 +61,26 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            EventCard(
-              show: currentIndex == 0,
-              onPressed: () => setState(() => currentIndex = 0),
-            ),
-            const SizedBox(height: 24),
-            EventCard(
-              show: currentIndex == 1,
-              onPressed: () => setState(() => currentIndex = 1),
-            ),
-            const SizedBox(height: 24),
-            EventCard(
-              show: currentIndex == 2,
-              onPressed: () => setState(() => currentIndex = 2),
-            ),
-            const SizedBox(height: 24),
-            EventCard(
-              show: currentIndex == 3,
-              onPressed: () => setState(() => currentIndex = 3),
-            ),
-          ],
-        ),
+        child: FutureBuilder(
+            future: DataService.getEvents(),
+            builder: (context, snapshot) {
+              return ListView.separated(
+                  padding: const EdgeInsets.all(0),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 24),
+                  itemCount: snapshot.data?.length ?? 0,
+                  itemBuilder: (context, i) {
+                    return Column(
+                      children: [
+                        EventCard(
+                          event: snapshot.data![i],
+                          show: currentIndex == 0,
+                          onPressed: () => setState(() => currentIndex = 0),
+                        ),
+                      ],
+                    );
+                  });
+            }),
       ),
     );
   }

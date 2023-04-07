@@ -1,4 +1,5 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/event/event_join.dart';
 import 'package:akademi_etkinlik/pages/event/event_rate.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/event_mod_draggable_menu.dart';
@@ -19,14 +20,15 @@ import 'package:flutter/material.dart';
 
 class EventPage extends StatelessWidget {
   final bool? join;
+  final Event event;
 
-  const EventPage({super.key, this.join});
+  const EventPage(this.event, {super.key, this.join});
 
   @override
   Widget build(BuildContext context) {
     return Base(
       appBar: Bar(
-        title: "Etkinlik",
+        title: event.title,
         popButton: true,
         children: [
           SingleButton(
@@ -58,8 +60,9 @@ class EventPage extends StatelessWidget {
                 children: [
                   Material(
                     color: ColorPalette.primaryBackground,
-                    borderRadius:
-                        const BorderRadius.vertical(bottom: Radius.circular(32)),
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(32),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 24, vertical: 16),
@@ -68,25 +71,22 @@ class EventPage extends StatelessWidget {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
-                                "4/7/23 21:00",
-                                style: TextStyle(
+                                "${event.date.toDate().day}/${event.date.toDate().month}/${event.date.toDate().year} ${event.date.toDate().hour}:${event.date.toDate().minute.toString().padLeft(2, "0")}",
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: ColorPalette.primaryText,
                                 ),
                               ),
-                              CountDown(),
+                              CountDown(event.date),
                             ],
                           ),
                           const SizedBox(height: 16),
-                          const LinkButton(url: "tiktok.com"),
+                          LinkButton(url: event.link ?? ""),
                           const SizedBox(height: 16),
-                          const ExpandableText(
-                            text:
-                                "Enim mollit duis mollit reprehenderit laborum elit eiusmod deserunt esse sit velit sit elit. Incididunt qui officia magna id nulla. Exercitation magna commodo fugiat ut et. Exercitation commodo ex commodo eu occaecat est dolor fugiat mollit amet dolor nulla id proident. Veniam voluptate dolor minim culpa laborum veniam do commodo laborum do consequat duis ea elit. Adipisicing sit elit adipisicing aliquip anim do reprehenderit pariatur consectetur irure ea sunt velit sint.",
-                          ),
+                          ExpandableText(text: event.content),
                           const SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -126,8 +126,8 @@ class EventPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 32),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

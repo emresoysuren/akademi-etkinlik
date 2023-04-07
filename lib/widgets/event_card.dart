@@ -1,16 +1,19 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/event/event.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/countdown.dart';
+import 'package:akademi_etkinlik/widgets/event_icon.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {
   final bool? show;
   final Function()? onPressed;
+  final Event event;
 
-  const EventCard({super.key, this.show, this.onPressed});
+  const EventCard({super.key, this.show, this.onPressed, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +40,12 @@ class EventCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          children: const [
-                            Icon(Icons.tiktok_rounded),
-                            SizedBox(width: 4),
+                          children: [
+                            EventIcon(event),
+                            const SizedBox(width: 4),
                             Text(
-                              "Etkinlik",
-                              style: TextStyle(
+                              event.title,
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w800,
                                 color: ColorPalette.primaryText,
@@ -51,9 +54,9 @@ class EventCard extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          "4/7/23 21:00",
-                          style: TextStyle(
+                        Text(
+                          "${event.date.toDate().day}/${event.date.toDate().month}/${event.date.toDate().year} ${event.date.toDate().hour}:${event.date.toDate().minute.toString().padLeft(2, "0")}",
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: ColorPalette.primaryText,
@@ -61,7 +64,7 @@ class EventCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const CountDown(),
+                    CountDown(event.date),
                   ],
                 ),
                 const SizedBox(height: 36),
@@ -72,7 +75,12 @@ class EventCard extends StatelessWidget {
                       label: "Görüntüle",
                       onPressed: () => Navigator.push(
                         context,
-                        SlidePageRoute(child: const EventPage(join: false,)),
+                        SlidePageRoute(
+                          child: EventPage(
+                            event,
+                            join: false,
+                          ),
+                        ),
                       ),
                     ),
                     Column(
