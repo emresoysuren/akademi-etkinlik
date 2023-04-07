@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
             ),
             padding: const EdgeInsets.all(10),
             child: const Icon(
-              Icons.notifications,
+              Icons.campaign,
               size: 28,
             ),
           ),
