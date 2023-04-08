@@ -3,7 +3,6 @@ import 'package:akademi_etkinlik/pages/auth/login.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/secondary_button.dart';
-import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

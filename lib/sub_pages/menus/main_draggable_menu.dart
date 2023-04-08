@@ -49,7 +49,7 @@ class MainDraggableMenu extends StatelessWidget {
                   builder: (context) => DialogCard(
                     title: "Çıkış Yap",
                     text:
-                        "Proident et ullamco minim eiusmod cupidatat ea consectetur in mollit ut excepteur duis ad velit.",
+                        "Çıkış yapmak istediğinize emin misiniz?",
                     buttonText: "Çıkış Yap",
                     buttonColor: Colors.red,
                     buttonTextColor: Colors.red,

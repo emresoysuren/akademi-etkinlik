@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.akademi_etkinlik">
+    package="com.example.appkademi">
    <application
-        android:label="akademi_etkinlik"
+        android:label="Appkademi"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

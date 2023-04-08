@@ -1,3 +1,3 @@
-# akademi_etkinlik
+# Appkademi
 
-A new Flutter project.
+Oyun ve Uygulama Akademisi Game & App Jam 2023 Projesi

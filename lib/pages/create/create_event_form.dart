@@ -41,7 +41,7 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
       ),
       body: DisableScrollBehavior(
         child: ListView.separated(
-          separatorBuilder: (context, index) => const SizedBox(height: 16),
+          separatorBuilder: (context, index) => const SizedBox(height: 20),
           padding: const EdgeInsets.all(16),
           itemCount: eventForm.formData.length,
           itemBuilder: (context, index) {
@@ -119,7 +119,7 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                         ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 12),
                   ParagraphField(
                     initialValue: eventForm.elementConentAt(index),
                     onChanged: (value) {
