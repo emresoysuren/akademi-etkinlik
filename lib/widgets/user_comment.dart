@@ -1,13 +1,16 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/models/comment.dart';
+import 'package:akademi_etkinlik/models/event.dart';
+import 'package:akademi_etkinlik/services/data_service.dart';
 import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
 import 'package:akademi_etkinlik/widgets/expandable_text.dart';
 import 'package:flutter/material.dart';
 
 class UserComment extends StatelessWidget {
-  final String? username;
-  final String? text;
+  final Event event;
+  final Comment comment;
 
-  const UserComment({super.key, this.username, this.text});
+  const UserComment({super.key, required this.comment, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class UserComment extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      username ?? "unknown",
+                      comment.username,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -41,19 +44,20 @@ class UserComment extends StatelessWidget {
                     const SizedBox(width: 8),
                     PlainTextButton(
                       icon: Icons.favorite,
-                      text: "1.2k",
+                      text: (comment.likes?.length ?? 0).toString(),
                       fontSize: 14,
                       iconSize: 18,
+                      elevation: 2,
                       padding: const EdgeInsets.all(6),
                       backgroundColor: ColorPalette.primaryBackground,
-                      onPressed: () {},
+                      onPressed: () => DataService.likeComment(event, comment),
                     ),
                   ],
                 ),
                 const SizedBox(height: 2),
                 ExpandableText(
                   maxLines: 4,
-                  text: text ?? "",
+                  text: comment.content,
                 ),
               ],
             ),

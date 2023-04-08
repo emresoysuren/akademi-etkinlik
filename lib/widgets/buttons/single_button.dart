@@ -7,6 +7,7 @@ class SingleButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final ShapeBorder? customBorder;
   final Color? color;
+  final double? elevation;
 
   const SingleButton({
     super.key,
@@ -15,12 +16,14 @@ class SingleButton extends StatelessWidget {
     this.padding,
     this.customBorder,
     this.color,
+    this.elevation,
   });
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: color ?? Colors.transparent,
+      elevation: elevation ?? 0,
       shape: customBorder ?? const CircleBorder(),
       child: InkWell(
         enableFeedback: false,

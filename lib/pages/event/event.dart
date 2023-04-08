@@ -1,8 +1,10 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/event/event_join.dart';
 import 'package:akademi_etkinlik/pages/event/event_rate.dart';
 import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
+import 'package:akademi_etkinlik/services/data_service.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/event_mod_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/add_comment.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
@@ -132,44 +134,49 @@ class EventPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 32),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "29 Yorum:",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: ColorPalette.primaryText,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          child: Row(
-                            children: const [
-                              Material(
-                                elevation: 2,
-                                shape: CircleBorder(),
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      ColorPalette.primaryBackground,
-                                  radius: 32,
+                    child: FutureBuilder(
+                        future: DataService.getComments(event),
+                        builder: (context, snapshot) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${snapshot.data?.length ?? "0"} Yorum:",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: ColorPalette.primaryText,
                                 ),
                               ),
-                              SizedBox(width: 24),
-                              Expanded(
-                                child: AddComment(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: Row(
+                                  children: [
+                                    const Material(
+                                      elevation: 2,
+                                      shape: CircleBorder(),
+                                      child: CircleAvatar(
+                                        backgroundColor:
+                                            ColorPalette.primaryBackground,
+                                        radius: 32,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 24),
+                                    Expanded(
+                                      child: AddComment(
+                                        event: event,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
+                              if (snapshot.data != null)
+                                for (Comment c in snapshot.data!)
+                                  UserComment(comment: c, event: event),
                             ],
-                          ),
-                        ),
-                        for (int x = 0; x < 30; x++)
-                          const UserComment(
-                            text:
-                                "Id nisi laborum enim veniam exercitation et. Incididunt duis qui minim est id fugiat proident do. Lorem est dolore ad cillum officia amet magna. Dolore commodo cupidatat minim non ullamco. Consequat dolor deserunt officia nostrud officia non nisi cillum in ut.",
-                          ),
-                      ],
-                    ),
+                          );
+                        }),
                   )
                 ],
               ),

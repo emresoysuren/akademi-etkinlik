@@ -13,6 +13,7 @@ class PlainTextButton extends StatelessWidget {
   final double? fontSize;
   final Color? iconColor;
   final double? iconSize;
+  final double? elevation;
 
   const PlainTextButton({
     super.key,
@@ -26,6 +27,7 @@ class PlainTextButton extends StatelessWidget {
     this.fontSize,
     this.iconColor,
     this.iconSize,
+    this.elevation,
   });
 
   @override
@@ -52,6 +54,7 @@ class PlainTextButton extends StatelessWidget {
     ];
     return SingleButton(
       color: backgroundColor,
+      elevation: elevation,
       padding:
           padding ?? const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       customBorder: RoundedRectangleBorder(

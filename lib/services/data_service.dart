@@ -1,4 +1,5 @@
 import 'package:akademi_etkinlik/models/announcement.dart';
+import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -40,7 +41,7 @@ class DataService {
         .set(event.toMap());
   }
 
-  // Event Functions
+  // Announcement Functions
   static Future<List<Announcement>> getAnnouncements() async {
     final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
@@ -77,5 +78,63 @@ class DataService {
         .collection("announcement")
         .doc(announcement.id)
         .set(announcement.toMap());
+  }
+
+  // Comment Functions
+  static Future<List<Comment>> getComments(Event event) async {
+    final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection("events")
+            .doc(event.id)
+            .collection("comments")
+            .orderBy("likes")
+            .get();
+    return documentSnapshot.docs.length > 25
+        ? documentSnapshot.docs
+            .sublist(0, 24)
+            .map((e) => Comment.fromMap(e.data()))
+            .toList()
+        : documentSnapshot.docs.map((e) {
+            final m = e.data();
+            m.addAll({"id": e.id});
+            return Comment.fromMap(m);
+          }).toList();
+  }
+
+  static Future<void> createComment(Event event, Comment comment) async {
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("comments")
+        .add(comment.toMap());
+  }
+
+  static Future<void> deleteComment(Event event, Comment comment) async {
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("comments")
+        .doc(comment.id)
+        .delete();
+  }
+
+  static Future<void> editComment(Event event, Comment comment) async {
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("comments")
+        .doc(comment.id)
+        .set(comment.toMap());
+  }
+
+  static Future<void> likeComment(Event event, Comment comment) async {
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("comments")
+        .doc(comment.id)
+        .update({
+      "likes": FieldValue.arrayUnion([comment.id])
+    });
   }
 }
