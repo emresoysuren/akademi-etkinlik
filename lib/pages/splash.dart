@@ -51,7 +51,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   Future<void> _firebaseInit() async {
-    Future minDuration = Future.delayed(Duration.zero);
+    Future minDuration = Future.delayed(const Duration(seconds: 3));
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

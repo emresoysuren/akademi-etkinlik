@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Config {
-  static const String title = "AEtkinlik";
+  static const String title = "Appkademi";
+  // static const String authText = "Oyun ve Uygulama Bursiyer Platformu";
 }
 
 class ColorPalette {

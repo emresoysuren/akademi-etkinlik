@@ -16,6 +16,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.0
   flutter_rating_bar: ^4.0.1
   flutter_riverpod: ^2.3.3
+  flutter_svg: ^2.0.4
   google_fonts: ^4.0.3
   loading_animation_widget: ^1.2.0+4
   marquee: ^2.2.3

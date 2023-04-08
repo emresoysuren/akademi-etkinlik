@@ -44,12 +44,15 @@ class _EventRatePageState extends State<EventRatePage> {
                 itemBuilder: (context, index) {
                   final uuid = eventForm.formIds[index];
                   if (eventForm.uuidTypeAt(uuid) == FormInput.question) {
-                    return Text(
-                      eventForm.uuidContentAt(uuid) ?? "",
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: ColorPalette.primaryText,
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text(
+                        eventForm.uuidContentAt(uuid) ?? "",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: ColorPalette.primaryText,
+                        ),
                       ),
                     );
                   }
