@@ -10,10 +10,10 @@ import 'package:uuid/uuid.dart';
 ///
 
 class EventForm {
-  Map<String, String> formData = {};
-  List<String> formIds = [];
+  Map<String, dynamic> formData;
+  List formIds;
 
-  EventForm({List<String>? ids, Map<String, String>? data})
+  EventForm({List? ids, Map<String, dynamic>? data})
       : formData = data ?? {},
         formIds = ids ?? [];
 

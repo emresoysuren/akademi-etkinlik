@@ -1,5 +1,8 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
+import 'package:akademi_etkinlik/pages/create/form/create_event_form.dart';
+import 'package:akademi_etkinlik/pages/create/form/models/form_return.dart';
+import 'package:akademi_etkinlik/pages/create/form/utils/form_code_generator.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
 import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
 import 'package:akademi_etkinlik/repository/events_repo.dart';
@@ -33,6 +36,8 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   String? _title;
   String? _content;
   DateTime? _dateTime;
+  EventForm? _joinEventForm;
+  EventForm? _rateEventForm;
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +161,8 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                         if (_content != null ||
                             _title != null ||
                             _link != null ||
+                            _joinEventForm != null ||
+                            _rateEventForm != null ||
                             _dateTime != null) {
                           if (widget.event == null) {
                             if (_content != null &&
@@ -167,6 +174,8 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                                   title: _title!,
                                   date: Timestamp.fromDate(_dateTime!),
                                   link: _link,
+                                  joinForm: _joinEventForm,
+                                  rateForm: _rateEventForm,
                                 ),
                               );
                               await ref.read(events).getEvents();
@@ -191,6 +200,10 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                                     ? Timestamp.fromDate(_dateTime!)
                                     : widget.event!.date,
                                 link: _link ?? widget.event?.link,
+                                joinForm:
+                                    _joinEventForm ?? widget.event?.joinForm,
+                                rateForm:
+                                    _rateEventForm ?? widget.event?.rateForm,
                                 id: widget.event!.id,
                               ),
                             );
@@ -217,7 +230,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                     width: double.infinity,
                     child: SecondaryButton(
                       label: "Form Ayarları",
-                      onPressed: () => _addForm(),
+                      onPressed: _addForm,
                     ),
                   ),
                 ],
@@ -230,10 +243,30 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   }
 
   _addForm() async {
-    await DraggableMenu.open(
+    FormReturn? formReturn = await DraggableMenu.open<FormReturn>(
       context,
-      const AddEventFormDraggableMenu(),
+      AddEventFormDraggableMenu(
+        joinEventForm: _joinEventForm ??
+            (widget.event?.joinForm != null ? widget.event!.joinForm! : null),
+        rateEventForm: _rateEventForm ??
+            (widget.event?.rateForm != null ? widget.event!.rateForm! : null),
+      ),
       barrier: true,
     );
+    if (formReturn == null) return;
+    if (formReturn.formType == FormType.join) {
+      if (mounted) {
+        setState(() {
+          _joinEventForm = formReturn.eventForm;
+        });
+      }
+    }
+    if (formReturn.formType == FormType.rate) {
+      if (mounted) {
+        setState(() {
+          _rateEventForm = formReturn.eventForm;
+        });
+      }
+    }
   }
 }

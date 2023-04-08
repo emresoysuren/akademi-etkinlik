@@ -1,5 +1,6 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/create/form/add_form_input_draggable_menu.dart';
+import 'package:akademi_etkinlik/pages/create/form/models/form_return.dart';
 import 'package:akademi_etkinlik/pages/create/form/utils/form_code_generator.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
@@ -15,15 +16,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CreateFormPage extends ConsumerStatefulWidget {
   final FormType formType;
+  final EventForm? eventForm;
 
-  const CreateFormPage({required this.formType, super.key});
+  const CreateFormPage({this.eventForm, required this.formType, super.key});
 
   @override
   ConsumerState<CreateFormPage> createState() => _CreateFormPageState();
 }
 
 class _CreateFormPageState extends ConsumerState<CreateFormPage> {
-  final EventForm formGenerator = EventForm();
+  late final EventForm eventForm = widget.eventForm ?? EventForm();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +43,9 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
         child: ListView.separated(
           separatorBuilder: (context, index) => const SizedBox(height: 16),
           padding: const EdgeInsets.all(16),
-          itemCount: formGenerator.formData.length,
+          itemCount: eventForm.formData.length,
           itemBuilder: (context, index) {
-            if (formGenerator.elementTypeAt(index) == FormInput.question) {
+            if (eventForm.elementTypeAt(index) == FormInput.question) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -59,8 +61,8 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      if (formGenerator.elementTypeAt(index + 1) == null ||
-                          formGenerator.elementTypeAt(index + 1) ==
+                      if (eventForm.elementTypeAt(index + 1) == null ||
+                          eventForm.elementTypeAt(index + 1) ==
                               FormInput.question)
                         PlainTextButton(
                           text: "Yanıt Ekle",
@@ -82,14 +84,13 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                             );
                             if (formInput == null) return;
                             setState(() {
-                              formGenerator.addItemTo(index + 1, formInput, "");
+                              eventForm.addItemTo(index + 1, formInput, "");
                             });
                           },
                         )
                       else
                         PlainTextButton(
-                          text:
-                              formGenerator.elementTypeAt(index + 1).toString(),
+                          text: eventForm.elementTypeAt(index + 1).toString(),
                           fontSize: 14,
                           iconSize: 18,
                           elevation: 2,
@@ -108,7 +109,7 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                             );
                             if (formInput == null) return;
                             setState(() {
-                              formGenerator.changeItemAt(
+                              eventForm.changeItemAt(
                                 index + 1,
                                 formInput,
                                 "",
@@ -120,17 +121,17 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                   ),
                   const SizedBox(height: 4),
                   ParagraphField(
-                    initialValue: formGenerator.elementConentAt(index),
+                    initialValue: eventForm.elementConentAt(index),
                     onChanged: (value) {
-                      formGenerator.editItemAt(index, value ?? "");
+                      eventForm.editItemAt(index, value ?? "");
                     },
                   ),
                 ],
               );
             }
-            if (formGenerator.elementTypeAt(index) == FormInput.checkBox) {
+            if (eventForm.elementTypeAt(index) == FormInput.checkBox) {
               return InfoField(
-                initialValue: formGenerator.elementConentAt(index),
+                initialValue: eventForm.elementConentAt(index),
                 isSecondary: true,
                 label: "Check Box",
               );
@@ -167,11 +168,13 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
 
   void _addQuestion() {
     setState(() {
-      formGenerator.addItem(FormInput.question, "");
+      eventForm.addItem(FormInput.question, "");
     });
   }
 
-  void _create() {}
+  void _create() {
+    Navigator.pop<FormReturn>(context, FormReturn(widget.formType, eventForm));
+  }
 }
 
 enum FormType {

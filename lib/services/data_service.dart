@@ -5,8 +5,6 @@ import 'package:akademi_etkinlik/models/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../pages/create/form/utils/form_code_generator.dart';
-
 class DataService {
   // Event Functions
   static Future<List<Event>> getEvents() async {
@@ -49,36 +47,6 @@ class DataService {
         .collection("events")
         .doc(event.id)
         .set(event.toMap());
-  }
-
-  // Event Form Functions
-  static Future<EventForm?>? getForm(Event event) async {
-    final DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-        await FirebaseFirestore.instance
-            .collection("event-join-forms")
-            .doc(event.id)
-            .get();
-    final map = documentSnapshot.data();
-    if (map == null) return null;
-    return EventForm.fromMap(map);
-  }
-
-  static Future<void> deleteForm(Event event) async {
-    // Only for admins
-    if (!UserConfig.admin) return;
-    await FirebaseFirestore.instance
-        .collection("event-join-forms")
-        .doc(event.id)
-        .delete();
-  }
-
-  static Future<void> editForm(Event event, EventForm eventForm) async {
-    // Only for admins
-    if (!UserConfig.admin) return;
-    await FirebaseFirestore.instance
-        .collection("event-join-forms")
-        .doc(event.id)
-        .set(eventForm.toMap());
   }
 
   // Announcement Functions
