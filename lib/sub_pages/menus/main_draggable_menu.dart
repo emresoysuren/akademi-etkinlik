@@ -1,4 +1,5 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/config/user.dart';
 import 'package:akademi_etkinlik/pages/create/announcement.dart';
 import 'package:akademi_etkinlik/pages/create/event.dart';
 import 'package:akademi_etkinlik/pages/settings.dart';
@@ -20,18 +21,20 @@ class MainDraggableMenu extends StatelessWidget {
       child: BaseCore(
         child: Column(
           children: [
-            _tile(
-              context,
-              icon: Icons.event_note_outlined,
-              title: "Etkinlik Oluştur",
-              page: const CreateEventPage(),
-            ),
-            _tile(
-              context,
-              icon: Icons.campaign_outlined,
-              title: "Duyuru Oluştur",
-              page: const CreateAnnouncementPage(),
-            ),
+            if (UserConfig.admin)
+              _tile(
+                context,
+                icon: Icons.event_note_outlined,
+                title: "Etkinlik Oluştur",
+                page: const CreateEventPage(),
+              ),
+            if (UserConfig.admin)
+              _tile(
+                context,
+                icon: Icons.campaign_outlined,
+                title: "Duyuru Oluştur",
+                page: const CreateAnnouncementPage(),
+              ),
             _tile(
               context,
               icon: Icons.settings,

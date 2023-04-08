@@ -1,4 +1,5 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/config/user.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
@@ -108,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
       try {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
+        await UserConfig.adminCheck();
         if (mounted) {
           Navigator.pushReplacement(
             context,

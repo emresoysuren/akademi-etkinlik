@@ -1,4 +1,5 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/config/user.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/create/event.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
@@ -32,54 +33,56 @@ class EventModDraggableMenu extends ConsumerWidget {
               title: "Ayarlar",
               page: const SettingsPage(),
             ),
-            _tile(
-              context,
-              title: "Etkinliği Düzenle",
-              icon: Icons.edit,
-              page: CreateEventPage(
-                event: event,
-              ),
-            ),
-            ListTile(
-              onTap: () => Navigator.push(
+            if (UserConfig.admin)
+              _tile(
                 context,
-                DialogRoute(
-                  context: context,
-                  builder: (context) => DialogCard(
-                    title: "Etkinliği Sil",
-                    text:
-                        "Bu etkinliği silmek istediğinize emin misiniz? Silme işlemi geri alınamaz.",
-                    buttonText: "Etkinliği Sil",
-                    buttonPress: () async {
-                      await DataService.deleteEvent(event);
-                      await ref.read(events).getEvents();
-                      if (context.mounted) {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          NonAnimatedPageRoute(
-                            builder: (context) => const HomePage(),
-                          ),
-                          (route) => false,
-                        );
-                      }
-                    },
+                title: "Etkinliği Düzenle",
+                icon: Icons.edit,
+                page: CreateEventPage(
+                  event: event,
+                ),
+              ),
+            if (UserConfig.admin)
+              ListTile(
+                onTap: () => Navigator.push(
+                  context,
+                  DialogRoute(
+                    context: context,
+                    builder: (context) => DialogCard(
+                      title: "Etkinliği Sil",
+                      text:
+                          "Bu etkinliği silmek istediğinize emin misiniz? Silme işlemi geri alınamaz.",
+                      buttonText: "Etkinliği Sil",
+                      buttonPress: () async {
+                        await DataService.deleteEvent(event);
+                        await ref.read(events).getEvents();
+                        if (context.mounted) {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            NonAnimatedPageRoute(
+                              builder: (context) => const HomePage(),
+                            ),
+                            (route) => false,
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                leading: const Icon(
+                  Icons.delete,
+                  color: ColorPalette.primaryItem,
+                ),
+                horizontalTitleGap: 0,
+                title: const Text(
+                  "Etkinliği Sil",
+                  style: TextStyle(
+                    color: ColorPalette.primaryItem,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
                   ),
                 ),
               ),
-              leading: const Icon(
-                Icons.delete,
-                color: ColorPalette.primaryItem,
-              ),
-              horizontalTitleGap: 0,
-              title: const Text(
-                "Etkinliği Sil",
-                style: TextStyle(
-                  color: ColorPalette.primaryItem,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
             ListTile(
               onTap: () {},
               leading: const Icon(

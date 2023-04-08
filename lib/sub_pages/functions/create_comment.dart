@@ -1,25 +1,25 @@
 import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
-import 'package:akademi_etkinlik/services/data_service.dart';
+import 'package:akademi_etkinlik/repository/comments_repo.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/fields/paragraph_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CreateComment extends StatefulWidget {
+class CreateComment extends ConsumerStatefulWidget {
   final Event event;
 
   const CreateComment({super.key, required this.event});
 
   @override
-  State<CreateComment> createState() => _CreateCommentState();
+  ConsumerState<CreateComment> createState() => _CreateCommentState();
 }
 
-class _CreateCommentState extends State<CreateComment> {
+class _CreateCommentState extends ConsumerState<CreateComment> {
   String _content = "";
 
   @override
@@ -47,15 +47,15 @@ class _CreateCommentState extends State<CreateComment> {
                 onPressed: () async {
                   final user = FirebaseAuth.instance.currentUser;
                   if (user == null || user.email == null) return;
-                  await DataService.createComment(
-                    widget.event,
-                    Comment(
-                      username: user.email!.split("@").first,
-                      uid: user.uid,
-                      content: _content,
-                      date: Timestamp.now(),
-                    ),
-                  );
+                  await ref.read(commentsRepo).create(
+                        widget.event,
+                        Comment(
+                          username: user.email!.split("@").first,
+                          uid: user.uid,
+                          content: _content,
+                          date: Timestamp.now(),
+                        ),
+                      );
                   if (mounted) Navigator.pop(context);
                 },
               ),

@@ -1,19 +1,25 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
-import 'package:akademi_etkinlik/services/data_service.dart';
+import 'package:akademi_etkinlik/repository/comments_repo.dart';
 import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
 import 'package:akademi_etkinlik/widgets/expandable_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserComment extends StatelessWidget {
+class UserComment extends ConsumerWidget {
   final Event event;
   final Comment comment;
 
   const UserComment({super.key, required this.comment, required this.event});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bool liked = FirebaseAuth.instance.currentUser != null
+        ? comment.likes?.contains(FirebaseAuth.instance.currentUser!.uid) ==
+            true
+        : false;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
@@ -48,9 +54,13 @@ class UserComment extends StatelessWidget {
                       fontSize: 14,
                       iconSize: 18,
                       elevation: 2,
+                      iconColor: liked ? Colors.white : null,
                       padding: const EdgeInsets.all(6),
-                      backgroundColor: ColorPalette.primaryBackground,
-                      onPressed: () => DataService.likeComment(event, comment),
+                      color: liked ? Colors.white : null,
+                      backgroundColor:
+                          liked ? Colors.red : ColorPalette.primaryBackground,
+                      onPressed: () =>
+                          ref.read(commentsRepo).like(event, comment),
                     ),
                   ],
                 ),
