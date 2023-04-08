@@ -216,7 +216,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                   SizedBox(
                     width: double.infinity,
                     child: SecondaryButton(
-                      label: "Form Ekle",
+                      label: "Form Ayarları",
                       onPressed: () => _addForm(),
                     ),
                   ),

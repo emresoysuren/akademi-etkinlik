@@ -9,10 +9,21 @@ import 'package:uuid/uuid.dart';
 /// <id>#<type> : <content>
 ///
 
-class FormGenerator {
+class EventForm {
   Map<String, String> formData = {};
   List<String> formIds = [];
 
+  EventForm({List<String>? ids, Map<String, String>? data})
+      : formData = data ?? {},
+        formIds = ids ?? [];
+
+  EventForm.fromMap(Map m) : this(ids: m["ids"], data: m["data"]);
+
+  Map<String, Object> toMap() {
+    return {"ids": formIds, "data": formData};
+  }
+
+  // Form Functions
   addItem(FormInput formInput, String content, [String? uuid]) {
     uuid ??= const Uuid().v4();
     if (formIds.contains(uuid)) return addItem(formInput, content);

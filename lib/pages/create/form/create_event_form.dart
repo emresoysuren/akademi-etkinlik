@@ -23,11 +23,10 @@ class CreateFormPage extends ConsumerStatefulWidget {
 }
 
 class _CreateFormPageState extends ConsumerState<CreateFormPage> {
-  final FormGenerator formGenerator = FormGenerator();
+  final EventForm formGenerator = EventForm();
 
   @override
   Widget build(BuildContext context) {
-    print(formGenerator.formIds);
     return Base(
       appBar: Bar(
         title: "Etkinlik",
@@ -155,7 +154,7 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
               const SizedBox(width: 16),
               Expanded(
                 child: PrimaryButton(
-                  onPressed: () {},
+                  onPressed: _create,
                   label: "Oluştur",
                 ),
               ),
@@ -171,6 +170,8 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
       formGenerator.addItem(FormInput.question, "");
     });
   }
+
+  void _create() {}
 }
 
 enum FormType {
