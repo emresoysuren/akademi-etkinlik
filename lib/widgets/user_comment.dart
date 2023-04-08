@@ -29,6 +29,7 @@ class UserComment extends ConsumerWidget {
             shape: CircleBorder(),
             child: CircleAvatar(
               backgroundColor: ColorPalette.primaryBackground,
+              foregroundImage: AssetImage("assets/user-avatar.png"),
               radius: 32,
             ),
           ),

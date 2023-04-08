@@ -24,14 +24,14 @@ class EventForm {
   }
 
   // Form Functions
-  addItem(FormInput formInput, String content, [String? uuid]) {
+  addItem(FormInput formInput, dynamic content, [String? uuid]) {
     uuid ??= const Uuid().v4();
     if (formIds.contains(uuid)) return addItem(formInput, content);
     formIds.add(uuid);
     formData.addAll({"$uuid#$formInput": content});
   }
 
-  addItemTo(int index, FormInput formInput, String content, [String? uuid]) {
+  addItemTo(int index, FormInput formInput, dynamic content, [String? uuid]) {
     if (uuid == null) {
       uuid ??= const Uuid().v4();
       if (formIds.contains(uuid)) return addItemTo(index, formInput, content);
@@ -47,7 +47,7 @@ class EventForm {
     formData.addAll({"$uuid#$formInput": content});
   }
 
-  editItemAt(int index, String content) {
+  editItemAt(int index, dynamic content) {
     if (formIds.length < index + 1) return null;
     final String uuid = formIds[index];
     final String key = formData.keys.firstWhere(
@@ -58,7 +58,7 @@ class EventForm {
     formData.update(key, (value) => content);
   }
 
-  changeItemAt(int index, FormInput formInput, String content) {
+  changeItemAt(int index, FormInput formInput, dynamic content) {
     if (formIds.length < index + 1) return null;
     final String uuid = formIds[index];
     formData.removeWhere((key, value) => key.contains("$uuid#"));
@@ -133,7 +133,7 @@ class EventForm {
     return null;
   }
 
-  String? uuidConentAt(String uuid) {
+  String? uuidContentAt(String uuid) {
     final String key = formData.keys.firstWhere(
       (element) => element.contains("$uuid#"),
       orElse: () => "",

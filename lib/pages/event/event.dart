@@ -168,6 +168,8 @@ class _EventPageState extends ConsumerState<EventPage> {
                                     child: CircleAvatar(
                                       backgroundColor:
                                           ColorPalette.primaryBackground,
+                                      foregroundImage:
+                                          AssetImage("assets/user-avatar.png"),
                                       radius: 32,
                                     ),
                                   ),

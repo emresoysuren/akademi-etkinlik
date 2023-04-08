@@ -2,6 +2,7 @@ import 'package:akademi_etkinlik/config/user.dart';
 import 'package:akademi_etkinlik/models/announcement.dart';
 import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
+import 'package:akademi_etkinlik/models/answer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -45,7 +46,8 @@ class DataService {
   }
 
   // Answer Functions
-  static Future<List<Event>> getAnswers(Event event) async {
+  // Join Answer
+  static Future<List<Answer>> getJoinAnswers(Event event) async {
     final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
             .collection("events")
@@ -54,15 +56,11 @@ class DataService {
             .orderBy("date")
             .get();
     return documentSnapshot.docs.map((e) {
-      final m = e.data();
-      m.addAll({"id": e.id});
-      return Event.fromMap(m);
+      return Answer.fromMap(e.data());
     }).toList();
   }
 
-  // TODO!!!
-
-  static Future<void> deleteAnswer(Event event) async {
+  static Future<void> deleteJoinAnswer(Event event) async {
     // Only for admins
     if (!UserConfig.admin) return;
     final user = FirebaseAuth.instance.currentUser;
@@ -75,7 +73,7 @@ class DataService {
         .delete();
   }
 
-  static Future<void> setAnswer(Event event) async {
+  static Future<void> setJoinAnswer(Event event, Answer joinAnswer) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
     await FirebaseFirestore.instance
@@ -83,7 +81,45 @@ class DataService {
         .doc(event.id)
         .collection("answers")
         .doc(user.uid)
-        .set(event.toMap());
+        .set(joinAnswer.toMap());
+  }
+
+  // Rate Answer
+  static Future<List<Answer>> getRateAnswers(Event event) async {
+    final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection("events")
+            .doc(event.id)
+            .collection("answers")
+            .orderBy("date")
+            .get();
+    return documentSnapshot.docs.map((e) {
+      return Answer.fromMap(e.data());
+    }).toList();
+  }
+
+  static Future<void> deleteRateAnswer(Event event) async {
+    // Only for admins
+    if (!UserConfig.admin) return;
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("answers")
+        .doc(user.uid)
+        .delete();
+  }
+
+  static Future<void> setRateAnswer(Event event, Answer rateAnswer) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("answers")
+        .doc(user.uid)
+        .set(rateAnswer.toMap());
   }
 
   // Announcement Functions
