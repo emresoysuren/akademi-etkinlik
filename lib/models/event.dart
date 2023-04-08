@@ -1,4 +1,4 @@
-import 'package:akademi_etkinlik/pages/create/form/utils/form_code_generator.dart';
+import 'package:akademi_etkinlik/pages/utils/form_code_generator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Event {

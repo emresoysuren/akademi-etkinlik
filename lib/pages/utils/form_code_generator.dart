@@ -114,6 +114,35 @@ class EventForm {
     if (value == null) return null;
     return value;
   }
+
+  // UUID Functions
+  FormInput? uuidTypeAt(String uuid) {
+    final String key = formData.keys.firstWhere(
+      (element) => element.contains("$uuid#"),
+      orElse: () => "",
+    );
+    if (key.isEmpty) return null;
+    if (key.split("#")[1] == FormInput.question.toString()) {
+      return FormInput.question;
+    }
+    if (key.split("#")[1] == FormInput.text.toString()) return FormInput.text;
+    if (key.split("#")[1] == FormInput.star.toString()) return FormInput.star;
+    if (key.split("#")[1] == FormInput.checkBox.toString()) {
+      return FormInput.checkBox;
+    }
+    return null;
+  }
+
+  String? uuidConentAt(String uuid) {
+    final String key = formData.keys.firstWhere(
+      (element) => element.contains("$uuid#"),
+      orElse: () => "",
+    );
+    if (key.isEmpty) return null;
+    final String? value = formData[key];
+    if (value == null) return null;
+    return value;
+  }
 }
 
 enum FormInput {

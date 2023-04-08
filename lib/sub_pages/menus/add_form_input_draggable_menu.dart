@@ -1,5 +1,5 @@
 import 'package:akademi_etkinlik/config/config.dart';
-import 'package:akademi_etkinlik/pages/create/form/utils/form_code_generator.dart';
+import 'package:akademi_etkinlik/pages/utils/form_code_generator.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';

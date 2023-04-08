@@ -1,7 +1,7 @@
 import 'package:akademi_etkinlik/config/config.dart';
-import 'package:akademi_etkinlik/pages/create/form/add_form_input_draggable_menu.dart';
-import 'package:akademi_etkinlik/pages/create/form/models/form_return.dart';
-import 'package:akademi_etkinlik/pages/create/form/utils/form_code_generator.dart';
+import 'package:akademi_etkinlik/sub_pages/menus/add_form_input_draggable_menu.dart';
+import 'package:akademi_etkinlik/models/form_return.dart';
+import 'package:akademi_etkinlik/pages/utils/form_code_generator.dart';
 import 'package:akademi_etkinlik/widgets/appbar.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';

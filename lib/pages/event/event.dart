@@ -22,17 +22,22 @@ import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventPage extends ConsumerWidget {
+class EventPage extends ConsumerStatefulWidget {
   final bool? join;
   final Event event;
 
   const EventPage(this.event, {super.key, this.join});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EventPage> createState() => _EventPageState();
+}
+
+class _EventPageState extends ConsumerState<EventPage> {
+  @override
+  Widget build(BuildContext context) {
     return Base(
       appBar: Bar(
-        title: event.title,
+        title: widget.event.title,
         popButton: true,
         children: [
           SingleButton(
@@ -40,7 +45,7 @@ class EventPage extends ConsumerWidget {
             onPressed: () => DraggableMenu.open(
               context,
               barrier: true,
-              EventModDraggableMenu(event: event),
+              EventModDraggableMenu(event: widget.event),
             ),
             child: const Icon(
               Icons.more_horiz,
@@ -80,20 +85,20 @@ class EventPage extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                event.date.toDateString(),
+                                widget.event.date.toDateString(),
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                   color: ColorPalette.primaryText,
                                 ),
                               ),
-                              CountDown(event.date),
+                              CountDown(widget.event.date),
                             ],
                           ),
                           const SizedBox(height: 16),
-                          LinkButton(url: event.link ?? ""),
+                          LinkButton(url: widget.event.link ?? ""),
                           const SizedBox(height: 28),
-                          ExpandableText(text: event.content),
+                          ExpandableText(text: widget.event.content),
                           const SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -117,15 +122,19 @@ class EventPage extends ConsumerWidget {
                           SizedBox(
                             width: double.infinity,
                             child: PrimaryButton(
-                              label: join != false ? "Katıl" : "Değerlendir",
-                              onPressed: () => Navigator.push(
-                                context,
-                                SlidePageRoute(
-                                  child: join != false
-                                      ? const EventJoinPage()
-                                      : const EventRatePage(),
-                                ),
-                              ),
+                              label: widget.join != false
+                                  ? "Katıl"
+                                  : "Değerlendir",
+                              onPressed: () async {
+                                await Navigator.push(
+                                  context,
+                                  SlidePageRoute(
+                                    child: widget.join != false
+                                        ? const EventJoinPage()
+                                        : EventRatePage(event: widget.event),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -136,48 +145,48 @@ class EventPage extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 32),
                     child: FutureBuilder(
-                        future: ref.watch(commentsRepo).get(event),
-                        builder: (context, snapshot) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${snapshot.data?.length ?? "0"} Yorum:",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: ColorPalette.primaryText,
-                                ),
+                      future: ref.watch(commentsRepo).get(widget.event),
+                      builder: (context, snapshot) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${snapshot.data?.length ?? "0"} Yorum:",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: ColorPalette.primaryText,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                child: Row(
-                                  children: [
-                                    const Material(
-                                      elevation: 2,
-                                      shape: CircleBorder(),
-                                      child: CircleAvatar(
-                                        backgroundColor:
-                                            ColorPalette.primaryBackground,
-                                        radius: 32,
-                                      ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              child: Row(
+                                children: [
+                                  const Material(
+                                    elevation: 2,
+                                    shape: CircleBorder(),
+                                    child: CircleAvatar(
+                                      backgroundColor:
+                                          ColorPalette.primaryBackground,
+                                      radius: 32,
                                     ),
-                                    const SizedBox(width: 24),
-                                    Expanded(
-                                      child: AddComment(
-                                        event: event,
-                                      ),
+                                  ),
+                                  const SizedBox(width: 24),
+                                  Expanded(
+                                    child: AddComment(
+                                      event: widget.event,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              if (snapshot.data != null)
-                                for (Comment c in snapshot.data!)
-                                  UserComment(comment: c, event: event),
-                            ],
-                          );
-                        }),
+                            ),
+                            if (snapshot.data != null)
+                              for (Comment c in snapshot.data!)
+                                UserComment(comment: c, event: widget.event),
+                          ],
+                        );
+                      },
+                    ),
                   )
                 ],
               ),

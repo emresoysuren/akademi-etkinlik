@@ -1,8 +1,8 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
-import 'package:akademi_etkinlik/pages/create/form/create_event_form.dart';
-import 'package:akademi_etkinlik/pages/create/form/models/form_return.dart';
-import 'package:akademi_etkinlik/pages/create/form/utils/form_code_generator.dart';
+import 'package:akademi_etkinlik/pages/create/create_event_form.dart';
+import 'package:akademi_etkinlik/models/form_return.dart';
+import 'package:akademi_etkinlik/pages/utils/form_code_generator.dart';
 import 'package:akademi_etkinlik/pages/home.dart';
 import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
 import 'package:akademi_etkinlik/repository/events_repo.dart';

@@ -13,16 +13,11 @@ class DataService {
             .collection("events")
             .orderBy("date")
             .get();
-    return documentSnapshot.docs.length > 25
-        ? documentSnapshot.docs
-            .sublist(0, 24)
-            .map((e) => Event.fromMap(e.data()))
-            .toList()
-        : documentSnapshot.docs.map((e) {
-            final m = e.data();
-            m.addAll({"id": e.id});
-            return Event.fromMap(m);
-          }).toList();
+    return documentSnapshot.docs.map((e) {
+      final m = e.data();
+      m.addAll({"id": e.id});
+      return Event.fromMap(m);
+    }).toList();
   }
 
   static Future<void> createEvent(Event event) async {
@@ -49,6 +44,48 @@ class DataService {
         .set(event.toMap());
   }
 
+  // Answer Functions
+  static Future<List<Event>> getAnswers(Event event) async {
+    final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
+        await FirebaseFirestore.instance
+            .collection("events")
+            .doc(event.id)
+            .collection("answers")
+            .orderBy("date")
+            .get();
+    return documentSnapshot.docs.map((e) {
+      final m = e.data();
+      m.addAll({"id": e.id});
+      return Event.fromMap(m);
+    }).toList();
+  }
+
+  // TODO!!!
+
+  static Future<void> deleteAnswer(Event event) async {
+    // Only for admins
+    if (!UserConfig.admin) return;
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("answers")
+        .doc(user.uid)
+        .delete();
+  }
+
+  static Future<void> setAnswer(Event event) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .collection("answers")
+        .doc(user.uid)
+        .set(event.toMap());
+  }
+
   // Announcement Functions
   static Future<List<Announcement>> getAnnouncements() async {
     final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
@@ -56,16 +93,11 @@ class DataService {
             .collection("announcement")
             .orderBy("date")
             .get();
-    return documentSnapshot.docs.length > 25
-        ? documentSnapshot.docs
-            .sublist(0, 24)
-            .map((e) => Announcement.fromMap(e.data()))
-            .toList()
-        : documentSnapshot.docs.map((e) {
-            final m = e.data();
-            m.addAll({"id": e.id});
-            return Announcement.fromMap(m);
-          }).toList();
+    return documentSnapshot.docs.map((e) {
+      final m = e.data();
+      m.addAll({"id": e.id});
+      return Announcement.fromMap(m);
+    }).toList();
   }
 
   static Future<void> createAnnouncement(Announcement announcement) async {
@@ -103,16 +135,11 @@ class DataService {
             .collection("comments")
             .orderBy("likes", descending: true)
             .get();
-    return documentSnapshot.docs.length > 25
-        ? documentSnapshot.docs
-            .sublist(0, 24)
-            .map((e) => Comment.fromMap(e.data()))
-            .toList()
-        : documentSnapshot.docs.map((e) {
-            final m = e.data();
-            m.addAll({"id": e.id});
-            return Comment.fromMap(m);
-          }).toList();
+    return documentSnapshot.docs.map((e) {
+      final m = e.data();
+      m.addAll({"id": e.id});
+      return Comment.fromMap(m);
+    }).toList();
   }
 
   static Future<void> createComment(Event event, Comment comment) async {
