@@ -20,7 +20,12 @@ class _CountDownState extends State<CountDown> {
     final DateTime nowDate = DateTime(now.year, now.month, now.day);
     final int countdown = widget.date.toDate().difference(nowDate).inDays;
     return Text(
-      countdown == 0 ? "Bugün" : "$countdown Gün Sonra",
+      countdown == 0
+          ? "Bugün"
+          : countdown > 0
+              ? "$countdown Gün\nSonra"
+              : "Sonlandı",
+      textAlign: TextAlign.center,
       style: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,

@@ -49,8 +49,8 @@ class EventCard extends StatelessWidget {
                               EventIcon(event),
                               const SizedBox(width: 4),
                               Text(
-                                event.title.length > 24
-                                    ? "${event.title.substring(0, 21)}..."
+                                event.title.length > 16
+                                    ? "${event.title.substring(0, 13)}..."
                                     : event.title,
                                 style: const TextStyle(
                                   fontSize: 20,

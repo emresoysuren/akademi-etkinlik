@@ -17,6 +17,7 @@ dependencies:
   flutter_riverpod: ^2.3.3
   google_fonts: ^4.0.3
   loading_animation_widget: ^1.2.0+4
+  marquee: ^2.2.3
   omni_datetime_picker: ^1.0.2
   url_launcher: ^6.1.10
 

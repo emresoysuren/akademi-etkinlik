@@ -116,7 +116,7 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                         : null
                     : ColorPalette.primaryText,
                 label: _dateTime != null
-                    ? widget.event!.date.toDateString()
+                    ? Timestamp.fromDate(_dateTime!).toDateString()
                     : widget.event != null
                         ? widget.event!.date.toDateString()
                         : "Etkinlik Zamanını Belirle",
