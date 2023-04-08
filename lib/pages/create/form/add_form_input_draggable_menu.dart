@@ -1,15 +1,15 @@
 import 'package:akademi_etkinlik/config/config.dart';
-import 'package:akademi_etkinlik/pages/create/form/create_form.dart';
+import 'package:akademi_etkinlik/pages/create/form/utils/form_code_generator.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
-import 'package:akademi_etkinlik/widgets/routes/slide.dart';
 import 'package:draggable_menu/draggable_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddEventFormDraggableMenu extends StatelessWidget {
-  const AddEventFormDraggableMenu({super.key});
+class AddFormInputDraggableMenu extends ConsumerWidget {
+  const AddFormInputDraggableMenu({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return DraggableMenu(
       minHeight: 0,
       color: ColorPalette.secondaryBackground,
@@ -18,15 +18,21 @@ class AddEventFormDraggableMenu extends StatelessWidget {
           children: [
             _tile(
               context,
-              icon: Icons.import_contacts_rounded,
-              title: "Katılım Formu Oluştur",
-              page: const CreateFormPage(formType: FormType.join),
+              title: "Yazı Alanı Ekle",
+              icon: Icons.text_fields_rounded,
+              formInput: FormInput.text,
             ),
             _tile(
               context,
-              icon: Icons.rate_review_outlined,
-              title: "Değerlendirme Formu Oluştur",
-              page: const CreateFormPage(formType: FormType.rate),
+              title: "Onay Kutusu Ekle",
+              icon: Icons.check_box_outlined,
+              formInput: FormInput.checkBox,
+            ),
+            _tile(
+              context,
+              title: "Yıldızlı Puan Ekle",
+              icon: Icons.star_border_rounded,
+              formInput: FormInput.star,
             ),
           ],
         ),
@@ -38,15 +44,10 @@ class AddEventFormDraggableMenu extends StatelessWidget {
     BuildContext context, {
     required String title,
     required IconData icon,
-    required Widget page,
+    required FormInput formInput,
   }) {
     return ListTile(
-      onTap: () => Navigator.pushReplacement(
-        context,
-        SlidePageRoute(
-          child: page,
-        ),
-      ),
+      onTap: () => Navigator.pop<FormInput>(context, formInput),
       leading: Icon(icon, color: ColorPalette.primaryItem),
       horizontalTitleGap: 0,
       title: Text(
