@@ -47,7 +47,9 @@ class DataService {
 
   // Answer Functions
   // Join Answer
-  static Future<List<Answer>> getJoinAnswers(Event event) async {
+  static Future<List<Answer>?> getJoinAnswers(Event event) async {
+    // Only for admins
+    if (!UserConfig.admin) return null;
     final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
             .collection("events")
@@ -85,7 +87,9 @@ class DataService {
   }
 
   // Rate Answer
-  static Future<List<Answer>> getRateAnswers(Event event) async {
+  static Future<List<Answer>?> getRateAnswers(Event event) async {
+    // Only for admins
+    if (!UserConfig.admin) return null;
     final QuerySnapshot<Map<String, dynamic>> documentSnapshot =
         await FirebaseFirestore.instance
             .collection("events")

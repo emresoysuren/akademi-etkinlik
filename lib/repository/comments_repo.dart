@@ -12,15 +12,23 @@ class CommentsRepo extends ChangeNotifier {
   }
 
   Future<void> like(Event event, Comment comment) async {
-    final result = await DataService.likeComment(event, comment);
+    await DataService.likeComment(event, comment);
     notifyListeners();
-    return result;
   }
 
   Future<void> create(Event event, Comment comment) async {
-    final result = await DataService.createComment(event, comment);
+    await DataService.createComment(event, comment);
     notifyListeners();
-    return result;
+  }
+
+  Future<void> edit(Event event, Comment comment) async {
+    await DataService.editComment(event, comment);
+    notifyListeners();
+  }
+
+  Future<void> delete(Event event, Comment comment) async {
+    await DataService.deleteComment(event, comment);
+    notifyListeners();
   }
 }
 

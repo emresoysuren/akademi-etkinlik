@@ -50,6 +50,7 @@ class DialogCard extends StatelessWidget {
                     const SizedBox(height: 16),
                     Text(
                       text,
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 16,
                         color: ColorPalette.primaryText,

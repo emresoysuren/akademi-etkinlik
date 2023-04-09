@@ -1,9 +1,13 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/config/user.dart';
 import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/repository/comments_repo.dart';
+import 'package:akademi_etkinlik/sub_pages/functions/create_comment.dart';
 import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
+import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:akademi_etkinlik/widgets/expandable_text.dart';
+import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +45,9 @@ class UserComment extends ConsumerWidget {
                 Row(
                   children: [
                     Text(
-                      comment.username,
+                      comment.username.length < 12
+                          ? comment.username
+                          : "${comment.username.substring(0, 11)}...",
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -63,6 +69,26 @@ class UserComment extends ConsumerWidget {
                       onPressed: () =>
                           ref.read(commentsRepo).like(event, comment),
                     ),
+                    const SizedBox(width: 4),
+                    if (comment.uid == FirebaseAuth.instance.currentUser?.uid || UserConfig.admin)
+                      SingleButton(
+                        padding: const EdgeInsets.all(11),
+                        onPressed: () => Navigator.push(
+                          context,
+                          NonAnimatedPageRoute(
+                            builder: (context) {
+                              return CreateComment(
+                                event: event,
+                                comment: comment,
+                              );
+                            },
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.edit,
+                          size: 22,
+                        ),
+                      ),
                   ],
                 ),
                 const SizedBox(height: 2),
