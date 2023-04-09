@@ -1,6 +1,7 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 
 class Bar extends StatelessWidget {
   final String title;
@@ -53,14 +54,30 @@ class Bar extends StatelessWidget {
                   children: [
                     Expanded(
                       child: subTitle == null
-                          ? Text(
-                              title,
-                              style: TextStyle(
-                                color: color ?? ColorPalette.primaryText,
-                                fontWeight: FontWeight.bold,
-                                fontSize: fontSize ?? 24,
-                              ),
-                            )
+                          ? title.length < 17
+                              ? Text(
+                                  title,
+                                  style: TextStyle(
+                                    color: color ?? ColorPalette.primaryText,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: fontSize ?? 24,
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: 60,
+                                  child: Marquee(
+                                    text: title,
+                                    fadingEdgeEndFraction: 0.36,
+                                    fadingEdgeStartFraction: 0.36,
+                                    blankSpace: 36,
+                                    velocity: 28,
+                                    style: TextStyle(
+                                      color: color ?? ColorPalette.primaryText,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: fontSize ?? 24,
+                                    ),
+                                  ),
+                                )
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
