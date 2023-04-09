@@ -118,31 +118,38 @@ class _EventPageState extends ConsumerState<EventPage> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            width: double.infinity,
-                            child: PrimaryButton(
-                              label: widget.event.date.toNow().inDays > 0
-                                  ? "Katıl"
-                                  : "Değerlendir",
-                              onPressed: () async {
-                                await Navigator.push(
-                                  context,
-                                  SlidePageRoute(
-                                    child: widget.event.date.toNow().inDays > 0
-                                        ? EventRatePage(
-                                            event: widget.event,
-                                            formType: FormType.join,
-                                          )
-                                        : EventRatePage(
-                                            event: widget.event,
-                                            formType: FormType.rate,
-                                          ),
-                                  ),
-                                );
-                              },
+                          if ((widget.event.joinForm != null &&
+                                  widget.event.date.toNow().inDays > 0) ||
+                              (widget.event.rateForm != null &&
+                                  widget.event.date.toNow().inDays <= 0))
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: PrimaryButton(
+                                  label: widget.event.date.toNow().inDays > 0
+                                      ? "Katıl"
+                                      : "Değerlendir",
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      SlidePageRoute(
+                                        child:
+                                            widget.event.date.toNow().inDays > 0
+                                                ? EventRatePage(
+                                                    event: widget.event,
+                                                    formType: FormType.join,
+                                                  )
+                                                : EventRatePage(
+                                                    event: widget.event,
+                                                    formType: FormType.rate,
+                                                  ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
                         ],
                       ),
                     ),

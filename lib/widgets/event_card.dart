@@ -47,7 +47,7 @@ class EventCard extends StatelessWidget {
                           Row(
                             children: [
                               EventIcon(event),
-                              const SizedBox(width: 4),
+                              const SizedBox(width: 10),
                               Text(
                                 event.title.length > 16
                                     ? "${event.title.substring(0, 13)}..."
