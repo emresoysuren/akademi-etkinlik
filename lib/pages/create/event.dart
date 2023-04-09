@@ -15,6 +15,7 @@ import 'package:akademi_etkinlik/widgets/buttons/configured/secondary_button.dar
 import 'package:akademi_etkinlik/widgets/disable_scroll_behavior.dart';
 import 'package:akademi_etkinlik/widgets/fields/info_field.dart';
 import 'package:akademi_etkinlik/widgets/fields/paragraph_field.dart';
+import 'package:akademi_etkinlik/widgets/flush_configured.dart';
 import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:draggable_menu/draggable_menu.dart';
@@ -189,7 +190,21 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                                 );
                               }
                             } else {
-                              // TODO: Throw an error. Because some fields are empty
+                              String msg = "Gerekli alanlar boş bırakılamaz.";
+                              if (_dateTime == null) {
+                                msg = "Tarih ve Saat kısmı boş bırakılamaz.";
+                              }
+                              if (_content == null) {
+                                msg = "Açıklama kısmı boş bırakılamaz.";
+                              }
+                              if (_title == null) {
+                                msg = "Başlık kısmı boş bırakılamaz.";
+                              }
+                              flushBarShow(
+                                context,
+                                title: "Etkinlik Yaratılamadı",
+                                message: msg,
+                              );
                             }
                           } else {
                             await DataService.editEvent(
@@ -219,8 +234,16 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                             }
                           }
                         } else {
-                          if (widget.event != null) Navigator.pop(context);
-                          // TODO: Show an error because the user haven't changed anything yet
+                          if (widget.event != null) {
+                            Navigator.pop(context);
+                          } else {
+                            flushBarShow(
+                              context,
+                              title: "Etkinlik Yaratılamadı",
+                              message:
+                                  "Etkinlik yaratabilmek için formu doldurunuz.",
+                            );
+                          }
                         }
                       },
                       label: widget.event == null ? "Oluştur" : "Kaydet",

@@ -6,6 +6,7 @@ import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/fields/info_field.dart';
 import 'package:akademi_etkinlik/widgets/fields/password_field.dart';
+import 'package:akademi_etkinlik/widgets/flush_configured.dart';
 import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,11 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
       } catch (e) {
-        // TODO: Add errors
+        flushBarShow(
+          context,
+          title: "Giriş Başarısız",
+          message: e.toString().split("] ").last,
+        );
       }
     }
   }

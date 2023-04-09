@@ -1,6 +1,7 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/pages/utils/link_type.dart';
 import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
+import 'package:akademi_etkinlik/widgets/flush_configured.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,11 +59,15 @@ class LinkButton extends StatelessWidget {
       text: text,
       color: color,
       backgroundColor: ColorPalette.secondaryItem,
-      onPressed: () async {
-        if (await canLaunchUrl(Uri.parse(url))) {
+      onPressed: () {
+        try {
           launchUrl(Uri.parse(url));
-        } else if (context.mounted) {
-          //TODO: Show a Popup
+        } catch (e) {
+          flushBarShow(
+            context,
+            title: "Link Açılamadı",
+            message: "Link açılırken bir sorunla karşılaşıldı.",
+          );
         }
       },
     );

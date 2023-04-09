@@ -9,6 +9,7 @@ import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart'
 import 'package:akademi_etkinlik/widgets/disable_scroll_behavior.dart';
 import 'package:akademi_etkinlik/widgets/fields/info_field.dart';
 import 'package:akademi_etkinlik/widgets/fields/paragraph_field.dart';
+import 'package:akademi_etkinlik/widgets/flush_configured.dart';
 import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +110,18 @@ class _CreateAnnouncementPageState
                             );
                           }
                         } else {
-                          // TODO: Throw an error. Because some fields are empty
+                          String msg = "Gerekli alanlar boş bırakılamaz.";
+                          if (_content == null) {
+                            msg = "Açıklama kısmı boş bırakılamaz.";
+                          }
+                          if (_title == null) {
+                            msg = "Başlık kısmı boş bırakılamaz.";
+                          }
+                          flushBarShow(
+                            context,
+                            title: "Duyuru Yaratılamadı",
+                            message: msg,
+                          );
                         }
                       } else {
                         await DataService.editAnnouncement(
@@ -131,7 +143,11 @@ class _CreateAnnouncementPageState
                         }
                       }
                     } else {
-                      // TODO: Show an error because the user haven't changed anything yet
+                      flushBarShow(
+                        context,
+                        title: "Duyuru Yaratılamadı",
+                        message: "Duyuru yaratabilmek için formu doldurunuz.",
+                      );
                     }
                   },
                   label: widget.announcement == null ? "Oluştur" : "Düzenle",

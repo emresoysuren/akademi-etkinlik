@@ -9,6 +9,7 @@ import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:akademi_etkinlik/widgets/fields/paragraph_field.dart';
+import 'package:akademi_etkinlik/widgets/flush_configured.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +117,12 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                           );
                       if (mounted) Navigator.pop(context);
                     } else {
-                      // TODO: Show an error message
+                      flushBarShow(
+                        context,
+                        title: "Yorum Paylaşılamadı",
+                        message:
+                            "Yorum paylaşabilmek için bir mesaj yazmalısınız.",
+                      );
                     }
                   }
                 },

@@ -18,7 +18,7 @@ class AuthPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
         child: Column(
           children: [
-            const Spacer(flex: 5),
+            const Spacer(flex: 4),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -37,7 +37,7 @@ class AuthPage extends StatelessWidget {
             ),
             const Spacer(),
             Image.asset("assets/auth-bg.png"),
-            const SizedBox(height: 8),
+            const Spacer(),
             SizedBox(
               width: double.infinity,
               child: PrimaryButton(
