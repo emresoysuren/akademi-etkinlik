@@ -25,7 +25,9 @@ class AddEventFormDraggableMenu extends StatelessWidget {
             _tile(
               context,
               icon: Icons.import_contacts_rounded,
-              title: "Katılım Formu Oluştur",
+              title: joinEventForm == null
+                  ? "Katılım Formu Oluştur"
+                  : "Katılım Formunu Düzenle",
               page: CreateFormPage(
                 formType: FormType.join,
                 eventForm: joinEventForm,
@@ -34,7 +36,9 @@ class AddEventFormDraggableMenu extends StatelessWidget {
             _tile(
               context,
               icon: Icons.rate_review_outlined,
-              title: "Değerlendirme Formu Oluştur",
+              title: rateEventForm == null
+                  ? "Değerlendirme Formu Oluştur"
+                  : "Değerlendirme Formunu Düzenle",
               page: CreateFormPage(
                 formType: FormType.rate,
                 eventForm: rateEventForm,

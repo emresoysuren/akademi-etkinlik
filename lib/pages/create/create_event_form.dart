@@ -1,4 +1,5 @@
 import 'package:akademi_etkinlik/config/config.dart';
+import 'package:akademi_etkinlik/sub_pages/cards/dialog.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/add_form_input_draggable_menu.dart';
 import 'package:akademi_etkinlik/models/form_return.dart';
 import 'package:akademi_etkinlik/pages/utils/form_code_generator.dart';
@@ -7,6 +8,7 @@ import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/primary_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/configured/secondary_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
+import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:akademi_etkinlik/widgets/disable_scroll_behavior.dart';
 import 'package:akademi_etkinlik/widgets/fields/info_field.dart';
 import 'package:akademi_etkinlik/widgets/fields/paragraph_field.dart';
@@ -33,11 +35,47 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
       appBar: Bar(
         title: "Etkinlik",
         subTitle: widget.formType == FormType.join
-            ? "Katılım Formu Oluştur"
+            ? (widget.eventForm == null
+                ? "Katılım Formu Oluştur"
+                : "Katılım Formunu Düzenle")
             : widget.formType == FormType.rate
-                ? "Değerlendirme Formu Oluşturun"
+                ? (widget.eventForm == null
+                    ? "Değerlendirme Formu Oluşturun"
+                    : "Değerlendirme Formunu Düzenleyin")
                 : null,
         popButton: true,
+        children: [
+          if (widget.eventForm != null)
+            SingleButton(
+              onPressed: () async {
+                final bool? result = await Navigator.push<bool>(
+                  context,
+                  DialogRoute(
+                    context: context,
+                    builder: (context) => DialogCard(
+                      title: "Formu Sil",
+                      buttonText: "Sil",
+                      text:
+                          "Bu formu silmek istediğine emin misin? Bu işlem geri alınamaz.",
+                      buttonColor: Colors.red,
+                      buttonTextColor: Colors.red,
+                      buttonPress: () => Navigator.pop<bool>(context, true),
+                    ),
+                  ),
+                );
+                if (mounted && result == true) {
+                  Navigator.pop<FormReturn>(
+                      context, FormReturn(widget.formType, delete: true));
+                }
+              },
+              padding: const EdgeInsets.all(10),
+              child: Icon(
+                Icons.delete,
+                size: 28,
+                color: Colors.red.shade600,
+              ),
+            ),
+        ],
       ),
       body: DisableScrollBehavior(
         child: ListView.separated(
@@ -156,7 +194,7 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
               Expanded(
                 child: PrimaryButton(
                   onPressed: _create,
-                  label: "Oluştur",
+                  label: widget.eventForm == null ? "Oluştur" : "Kaydet",
                 ),
               ),
             ],
@@ -173,7 +211,8 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
   }
 
   void _create() {
-    Navigator.pop<FormReturn>(context, FormReturn(widget.formType, eventForm));
+    Navigator.pop<FormReturn>(
+        context, FormReturn(widget.formType, eventForm: eventForm));
   }
 }
 
