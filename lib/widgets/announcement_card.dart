@@ -36,7 +36,9 @@ class AnnouncementCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      announcement.title,
+                      announcement.title.length > 16
+                          ? '${announcement.title.substring(0, 13)}... '
+                          : announcement.title,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
