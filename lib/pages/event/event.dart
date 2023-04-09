@@ -1,8 +1,8 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
-import 'package:akademi_etkinlik/pages/event/event_join.dart';
-import 'package:akademi_etkinlik/pages/event/event_rate.dart';
+import 'package:akademi_etkinlik/pages/create/create_event_form.dart';
+import 'package:akademi_etkinlik/pages/event/event_form.dart';
 import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
 import 'package:akademi_etkinlik/pages/utils/to_now.dart';
 import 'package:akademi_etkinlik/repository/comments_repo.dart';
@@ -130,8 +130,14 @@ class _EventPageState extends ConsumerState<EventPage> {
                                   context,
                                   SlidePageRoute(
                                     child: widget.event.date.toNow().inDays > 0
-                                        ? const EventJoinPage()
-                                        : EventRatePage(event: widget.event),
+                                        ? EventRatePage(
+                                            event: widget.event,
+                                            formType: FormType.join,
+                                          )
+                                        : EventRatePage(
+                                            event: widget.event,
+                                            formType: FormType.rate,
+                                          ),
                                   ),
                                 );
                               },

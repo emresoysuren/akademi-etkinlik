@@ -219,10 +219,11 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
                             }
                           }
                         } else {
+                          if (widget.event != null) Navigator.pop(context);
                           // TODO: Show an error because the user haven't changed anything yet
                         }
                       },
-                      label: widget.event == null ? "Oluştur" : "Düzenle",
+                      label: widget.event == null ? "Oluştur" : "Kaydet",
                     ),
                   ),
                   const SizedBox(height: 16),
