@@ -27,7 +27,7 @@ class EventCard extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 320),
           curve: Curves.ease,
-          height: show == true ? 170 : 80,
+          height: show == true ? 170 : 82,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           decoration: BoxDecoration(
             color: ColorPalette.secondaryBackground,
