@@ -29,6 +29,13 @@
             {
               "client_id": "241856329181-9blt66jb7ih52b65esdh93g5n287lun1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "241856329181-ueslbbau5m2iiusdknk41li3ctck2md5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.akademiEtkinlik"
+              }
             }
           ]
         }
