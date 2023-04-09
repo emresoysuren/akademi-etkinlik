@@ -22,15 +22,15 @@ class AddFormInputDraggableMenu extends ConsumerWidget {
               icon: Icons.text_fields_rounded,
               formInput: FormInput.text,
             ),
+            // _tile(
+            //   context,
+            //   title: "Onay Kutusu Ekle",
+            //   icon: Icons.check_box_outlined,
+            //   formInput: FormInput.checkBox,
+            // ),
             _tile(
               context,
-              title: "Onay Kutusu Ekle",
-              icon: Icons.check_box_outlined,
-              formInput: FormInput.checkBox,
-            ),
-            _tile(
-              context,
-              title: "Yıldızlı Puan Ekle",
+              title: "Yıldızlı Puanlama Ekle",
               icon: Icons.star_border_rounded,
               formInput: FormInput.star,
             ),
