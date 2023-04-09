@@ -98,7 +98,7 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                           color: ColorPalette.primaryText,
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 12),
                       if (eventForm.elementTypeAt(index + 1) == null ||
                           eventForm.elementTypeAt(index + 1) ==
                               FormInput.question)
@@ -175,6 +175,48 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                             }
                           },
                         ),
+                      const Spacer(),
+                      SingleButton(
+                        onPressed: () async {
+                          final bool? result = await Navigator.push<bool>(
+                            context,
+                            DialogRoute(
+                              context: context,
+                              builder: (context) => DialogCard(
+                                title: "Soruyu Sil",
+                                buttonText: "Sil",
+                                text: "Forum ve altındaki yanıtları sil.",
+                                buttonColor: Colors.red,
+                                buttonTextColor: Colors.red,
+                                buttonPress: () =>
+                                    Navigator.pop<bool>(context, true),
+                              ),
+                            ),
+                          );
+                          if (result == true) {
+                            setState(() {
+                              FormInput? answerType;
+                              if (eventForm.elementTypeAt(index + 1) !=
+                                  FormInput.question) {
+                                answerType = eventForm.elementTypeAt(index + 1);
+                              }
+                              eventForm.removeItemAt(index);
+                              if (answerType != null) {
+                                while (eventForm.elementTypeAt(index) ==
+                                    answerType) {
+                                  eventForm.removeItemAt(index);
+                                }
+                              }
+                            });
+                          }
+                        },
+                        padding: const EdgeInsets.all(12),
+                        child: const Icon(
+                          Icons.delete,
+                          size: 24,
+                          color: ColorPalette.primaryItem,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 12),

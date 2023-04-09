@@ -37,8 +37,16 @@ class _CreateEventPageState extends ConsumerState<CreateEventPage> {
   String? _title;
   String? _content;
   DateTime? _dateTime;
-  late EventForm? _joinEventForm = widget.event?.joinForm;
-  late EventForm? _rateEventForm = widget.event?.rateForm;
+  late EventForm? _joinEventForm = widget.event?.joinForm != null
+      ? EventForm(
+          ids: widget.event?.joinForm!.formIds,
+          data: widget.event?.joinForm!.formData)
+      : null;
+  late EventForm? _rateEventForm = widget.event?.rateForm != null
+      ? EventForm(
+          ids: widget.event?.rateForm!.formIds,
+          data: widget.event?.rateForm!.formData)
+      : null;
 
   @override
   Widget build(BuildContext context) {
