@@ -66,9 +66,10 @@ class EventForm {
     addItemTo(index, formInput, content, uuid);
   }
 
-  removeItemAt(int index) {
+  void removeItemAt(int index) {
     final String uuid = formIds[index];
     formData.removeWhere((key, value) => key.contains("$uuid#"));
+    formIds.removeAt(index);
   }
 
   Map<String, String?>? elementAt(int index) {

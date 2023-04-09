@@ -146,13 +146,33 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
                               barrier: true,
                             );
                             if (formInput == null) return;
-                            setState(() {
-                              eventForm.changeItemAt(
-                                index + 1,
-                                formInput,
-                                "",
-                              );
-                            });
+                            // Adds input to the question stack
+                            if (formInput ==
+                                eventForm.elementTypeAt(index + 1)) {
+                              int target = index;
+                              while (eventForm.elementTypeAt(target + 1) !=
+                                  formInput) {
+                                target++;
+                              }
+                              setState(() {
+                                eventForm.addItemTo(target + 1, formInput, "");
+                              });
+                            } else {
+                              setState(() {
+                                //when type changed clear all of them except the first one
+                                final FormInput? initType =
+                                    eventForm.elementTypeAt(index + 1);
+                                eventForm.changeItemAt(
+                                  index + 1,
+                                  formInput,
+                                  "",
+                                );
+                                while (initType ==
+                                    eventForm.elementTypeAt(index + 2)) {
+                                  eventForm.removeItemAt(index + 2);
+                                }
+                              });
+                            }
                           },
                         ),
                     ],
@@ -211,6 +231,7 @@ class _CreateFormPageState extends ConsumerState<CreateFormPage> {
   }
 
   void _create() {
+    if (eventForm.formData.isEmpty) return;
     Navigator.pop<FormReturn>(
         context, FormReturn(widget.formType, eventForm: eventForm));
   }
