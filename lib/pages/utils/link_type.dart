@@ -27,6 +27,9 @@ extension LinkType on String {
     if (toLowerCase().contains("slack.com")) {
       return LinkTypes.slack;
     }
+    if (toLowerCase().contains("snapchat.com")) {
+      return LinkTypes.snapchat;
+    }
     return LinkTypes.other;
   }
 }
@@ -42,4 +45,5 @@ enum LinkTypes {
   twitter,
   zoom,
   slack,
+  snapchat,
 }

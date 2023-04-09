@@ -36,6 +36,10 @@ class EventIcon extends StatelessWidget {
         icon = FontAwesomeIcons.instagram;
         color = Colors.purple;
         break;
+      case LinkTypes.snapchat:
+        icon = FontAwesomeIcons.snapchat;
+        color = Colors.amber;
+        break;
       default:
         icon = Icons.link;
     }

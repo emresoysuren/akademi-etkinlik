@@ -95,6 +95,15 @@ class _LoginPageState extends State<LoginPage> {
                           : null,
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    "Şifreni mi unuttun?",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: ColorPalette.primaryText,
+                    ),
+                  ),
                 ],
               ),
             ),
