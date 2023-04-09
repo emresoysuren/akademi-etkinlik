@@ -4,6 +4,7 @@ import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/pages/event/event_join.dart';
 import 'package:akademi_etkinlik/pages/event/event_rate.dart';
 import 'package:akademi_etkinlik/pages/utils/timestamp_to_date_string.dart';
+import 'package:akademi_etkinlik/pages/utils/to_now.dart';
 import 'package:akademi_etkinlik/repository/comments_repo.dart';
 import 'package:akademi_etkinlik/sub_pages/menus/event_mod_draggable_menu.dart';
 import 'package:akademi_etkinlik/widgets/add_comment.dart';
@@ -23,10 +24,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EventPage extends ConsumerStatefulWidget {
-  final bool? join;
   final Event event;
 
-  const EventPage(this.event, {super.key, this.join});
+  const EventPage(this.event, {super.key});
 
   @override
   ConsumerState<EventPage> createState() => _EventPageState();
@@ -122,14 +122,14 @@ class _EventPageState extends ConsumerState<EventPage> {
                           SizedBox(
                             width: double.infinity,
                             child: PrimaryButton(
-                              label: widget.join != false
+                              label: widget.event.date.toNow().inDays > 0
                                   ? "Katıl"
                                   : "Değerlendir",
                               onPressed: () async {
                                 await Navigator.push(
                                   context,
                                   SlidePageRoute(
-                                    child: widget.join != false
+                                    child: widget.event.date.toNow().inDays > 0
                                         ? const EventJoinPage()
                                         : EventRatePage(event: widget.event),
                                   ),

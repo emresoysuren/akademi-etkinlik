@@ -99,10 +99,8 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                               likes: widget.comment?.likes,
                             ),
                           );
-                      if (mounted) Navigator.pop(context);
-                    } else {
-                      // TODO: Show an error message
                     }
+                    if (mounted) Navigator.pop(context);
                   } else {
                     if (_content.isNotEmpty) {
                       final user = FirebaseAuth.instance.currentUser;

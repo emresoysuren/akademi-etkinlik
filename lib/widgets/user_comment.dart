@@ -3,7 +3,7 @@ import 'package:akademi_etkinlik/config/user.dart';
 import 'package:akademi_etkinlik/models/comment.dart';
 import 'package:akademi_etkinlik/models/event.dart';
 import 'package:akademi_etkinlik/repository/comments_repo.dart';
-import 'package:akademi_etkinlik/sub_pages/functions/create_comment.dart';
+import 'package:akademi_etkinlik/pages/create/create_comment.dart';
 import 'package:akademi_etkinlik/widgets/buttons/plain_text_button.dart';
 import 'package:akademi_etkinlik/widgets/buttons/single_button.dart';
 import 'package:akademi_etkinlik/widgets/expandable_text.dart';

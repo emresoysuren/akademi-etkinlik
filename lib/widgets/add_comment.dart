@@ -1,6 +1,6 @@
 import 'package:akademi_etkinlik/config/config.dart';
 import 'package:akademi_etkinlik/models/event.dart';
-import 'package:akademi_etkinlik/sub_pages/functions/create_comment.dart';
+import 'package:akademi_etkinlik/pages/create/create_comment.dart';
 import 'package:akademi_etkinlik/widgets/base.dart';
 import 'package:akademi_etkinlik/widgets/routes/nonanimated.dart';
 import 'package:flutter/material.dart';

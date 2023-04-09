@@ -85,7 +85,6 @@ class EventCard extends StatelessWidget {
                           SlidePageRoute(
                             child: EventPage(
                               event,
-                              join: false,
                             ),
                           ),
                         ),
